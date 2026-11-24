@@ -1,6 +1,6 @@
 # Documentação do projeto AEMA
 
-**Edição da documentação: 1.0.2 · Software documentado: 1.0.0 · 24/11/2026.**
+**Edição da documentação: 2.0.0 · Software documentado: 2.0.0 · 24/11/2026.**
 
 O AEMA é uma infraestrutura de coleta, interpretação e análise offline de dados Android
 BatteryStats. O app usa Shizuku para criar capturas locais a cada seis horas; o computador
@@ -13,7 +13,9 @@ O objetivo final de produto foi ampliado pelo autor para **previsão personaliza
 consumo e recomendações**, com execução offline no telefone. O
 [caderno de estudos de IA](estudos/README.md) documenta essa linha, os requisitos
 confirmados, as alternativas e as fontes. A comparação elétrica continua como estudo
-de sustentação; previsão, treinamento e recomendações ainda são propostas.
+de sustentação. A versão 2.0.0 implementa leitura por LLM e sugestões limitadas aos
+fatos de uma captura; previsão treinada e aprendizado pessoal permanecem propostos.
+Ver [guia da IA e debug](android/LLM-E-DEBUG.md).
 
 ## Roteiro de leitura
 
@@ -26,8 +28,9 @@ de sustentação; previsão, treinamento e recomendações ainda são propostas.
 | [Dados e contratos](projeto/05-DADOS-E-CONTRATOS.md) | O que significam os arquivos, campos, unidades, versões e diagnósticos? |
 | [Operação, validação e limites](projeto/06-OPERACAO-VALIDACAO-E-LIMITES.md) | Como reproduzir o funcionamento, verificar resultados e reconhecer limitações? |
 | [Referências e glossário](projeto/07-REFERENCIAS-E-GLOSSARIO.md) | Quais fontes fundamentam o projeto e o que significam seus termos? |
-| [Catálogo completo](CATALOGO-COMPLETO.md) | Quais são os 145 campos catalogados, suas unidades e classes? |
+| [Catálogo completo](CATALOGO-COMPLETO.md) | Quais são os 147 campos catalogados, suas unidades e classes? |
 | [Estudos de IA e previsão](estudos/README.md) | Como investigar modelos leves, aprendizado pessoal e recomendações offline, e quais fontes sustentam as escolhas? |
+| [Leitura LLM e debug implementados](android/LLM-E-DEBUG.md) | Como instalar o modelo, analisar, cancelar, exportar e reproduzir a integração 2.0.0? |
 
 Para instalar e usar o app, consulte o [guia Android](android/README.md). Para compartilhar
 resultados, leia a [política de privacidade](study/PRIVACY.md). Para preparar a redação
@@ -44,17 +47,19 @@ que ainda não tenham dados experimentais.
 | Pendente | Falta decisão, hardware, dado ou implementação necessária à conclusão. |
 | Histórico | Registro de uma etapa anterior; não deve substituir a descrição atual. |
 
-A documentação foi confrontada com o código da release [1.0.0](https://github.com/James-bb-ALT/AEMA/releases/tag/v1.0.0),
-com os testes e com os protocolos locais. O commit-base documentado é `6c0ae26`.
+A infraestrutura original foi documentada a partir da release [1.0.0](https://github.com/James-bb-ALT/AEMA/releases/tag/v1.0.0),
+commit-base `6c0ae26`. A camada LLM e debug acrescentada em 2.0.0 tem contratos,
+código e verificações próprios no guia correspondente e nas notas de release.
 As referências externas estão datadas no capítulo 7. Não há expansão formal da sigla AEMA
 registrada no pacote; esta documentação não atribui um nome por extenso sem decisão do autor.
 
 ## Versões e organização
 
-Esta atualização altera documentação e estudos. App e pacote Python permanecem
-em **1.0.0**, assim como seus contratos não alterados: captura 1.0, registro canônico 1.0,
-manifesto de dataset 2.0 e catálogo 1.1. A edição documental recebe **1.0.2**, uma melhoria
-incremental na classificação de versões adotada pelo projeto. Ver [notas documentais](releases/docs-1.0.2.md).
+Esta etapa acrescenta funcionalidade. App, pacote Python e documentação recebem
+**2.0.0**, conforme a classificação do projeto. Contratos não alterados permanecem:
+captura 1.0, registro canônico 1.0 e manifesto de dataset 2.0. O catálogo avança para
+1.2 com GPU; datasets 1.1 continuam importáveis quando não contêm as novas métricas.
+Ver [notas da release](releases/2.0.0.md); edições documentais anteriores permanecem históricas.
 
 O [estado atual](STATUS.md) resume a entrega. Os arquivos em `audit/` e `refactoring/`
 preservam avaliações anteriores. O [plano de implementação](roadmap/IMPLEMENTATION-PLAN.md)

@@ -48,7 +48,7 @@ rejeições registradas; não permite aceitar versão check-in desconhecida. O a
 o fluxo estrito da versão atual. Erros de domínio na CLI retornam código 2; argumentos
 inválidos são tratados pelo argparse.
 
-No telefone, instale o [APK 1.0.0](https://github.com/James-bb-ALT/AEMA/releases/tag/v1.0.0),
+No telefone, instale o [APK atual](https://github.com/James-bb-ALT/AEMA/releases),
 inicie/autorize Shizuku, escolha pasta local, autorize alarmes e notificações e ative
 a automação. A primeira captura é imediata. Coleta manual não redefine a âncora automática;
 pausar preserva os dados e uma captura já iniciada pode terminar normalmente.
@@ -75,7 +75,9 @@ Para compartilhar, use a política e os comandos de [Privacidade](../study/PRIVA
 
 ## 6.4 Testes e evidências registradas
 
-Baseline da release 1.0.0, datado de 24/11/2026:
+Baseline histórico da release 1.0.0, datado de 24/11/2026. Para a camada LLM em
+2.0.0, consulte [verificações da release](../releases/2.0.0.md) e
+[operação e debug](../android/LLM-E-DEBUG.md).
 
 | Verificação | Evidência | O que não demonstra |
 |---|---|---|
@@ -158,15 +160,16 @@ Essas evidências dependem também da governança do estudo.
 | Sincronização/overhead | Evidência de relógios, perdas e comparação com/sem coletor |
 | Extensões RAM/componentes/1 µA | Hardware apropriado, escopo, unidade e critério de decisão próprios |
 
-Este pedido de documentação não executa esses marcos nem acrescenta funcionalidades.
-O estado científico deve ser atualizado quando novas evidências existirem.
+A integração 2.0.0 acrescenta leitura por LLM e diagnóstico, não executa os marcos de
+validação elétrica, treinamento ou previsão. O estado científico deve ser atualizado
+quando novas evidências existirem.
 
 ## 6.8 Manutenção e publicação
 
-Código do app/pacote, contratos e documentação têm responsabilidades distintas. Esta
-edição altera somente documentos e exemplos. Por isso, a documentação recebe 1.0.1,
-enquanto runtime e pacote permanecem 1.0.0. Uma atualização de texto não exige gerar um
-APK com binários idênticos e uma nova versão artificial.
+Código do app/pacote, contratos e documentação têm responsabilidades distintas. As edições
+documentais 1.0.1/1.0.2 preservaram o software 1.0.0. A nova funcionalidade de leitura LLM
+altera app e pacote; a etapa 2.0.0 sincroniza essas versões com a documentação, preservando
+os schemas não alterados. Uma atualização apenas de texto não exige um novo APK idêntico.
 
 Na classificação adotada pelo proprietário: melhoria incremental incrementa `x.y.Z`;
 mudança grande incrementa `x.Y.0`; nova etapa incrementa `X.0.0`, zerando campos à direita.

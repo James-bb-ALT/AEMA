@@ -1,4 +1,18 @@
-# Compatibilidade e evidências — AEMA 1.0.0
+# Compatibilidade e evidências — AEMA 2.0.0
+
+## Evidência adicionada em 2.0.0
+
+Leitura Qwen3/llama.cpp em CPU executada de fato no Android 15 x86_64, em emulador com
+6 GB: controlador, processo nativo e validação; cancelamento; preservação do modelo em
+importações inválidas/interrompidas. Cinco testes JVM e 203 testes Python passaram,
+com cobertura de 92,77%. As métricas de uma execução estão nas [notas](../releases/2.0.0.md).
+Isso não prova consumo elétrico, p95 ou desempenho em um telefone físico de 6 GB.
+
+Pipeline offline, captura com Shizuku parado e alarme com Shizuku real foram executados
+novamente. A captura ativa revelou GPU e anotação de origem do consumo; catálogo 1.2
+e parser receberam fixtures e regressões. Datasets 1.1 compatíveis continuam legíveis.
+O quadro abaixo preserva o baseline da infraestrutura 1.0.0; a
+[camada LLM/debug](LLM-E-DEBUG.md) tem requisitos e limites adicionais.
 
 Data: 24 de novembro de 2026. Compatibilidade de software não é validação elétrica.
 

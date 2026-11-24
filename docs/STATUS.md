@@ -1,17 +1,25 @@
-# Estado atual — AEMA 1.0.0
+# Estado atual — AEMA 2.0.0
 
 Atualizado em 24 de novembro de 2026. Este arquivo descreve o estado atual; documentos
 de auditoria/refatoração e o baseline do roadmap são registros históricos.
 
-Documentação completa: [índice do manual](README.md), edição **1.0.2**, cobrindo objeto,
-hipóteses propostas, métodos, arquitetura, código e contratos do software **1.0.0**.
+Documentação completa: [índice do manual](README.md), edição **2.0.0**, cobrindo objeto,
+hipóteses propostas, métodos, arquitetura, código e contratos do software **2.0.0**.
 
 O [estudo de IA](estudos/README.md) registra a meta confirmada de previsão das próximas
 6 h, componentes/aplicativos, inferência offline e aparelhos com 6 GB ou mais, com
 treinamento maior no computador. Inclui fontes e proposta de arquitetura híbrida.
-Modelos de IA, deltas/janelas, aprendizado pessoal e recomendações **não estão implementados**.
+A [leitura de snapshot por LLM e o debug](android/LLM-E-DEBUG.md) estão implementados em
+2.0.0. Deltas/janelas de treino, previsão futura, adaptação pessoal e ensaios de economia
+**não estão implementados**.
 
 ## Implementado
+
+- Qwen3 GGUF por llama.cpp em CPU e processo privado, importação/preparação do modelo,
+  seleção de fatos verificados, sugestões revisadas e cancelamento ao sair da tela.
+- Debug local limitado, métricas de execução/memória e exportação explícita de JSON.
+- Catálogo 1.2 com GPU, importação retrocompatível de datasets 1.1 e parsing da anotação
+  `[energy consumption]` observada no Android 15. Formatos desconhecidos preservam os brutos.
 
 - Núcleo Python compartilhado por host e Android: parsing check-in v9, relatório de
   energia, pacotes/UIDs, normalização, catálogo, modelos e dataset canônicos, verificação

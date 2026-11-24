@@ -109,6 +109,7 @@ public final class MainActivity extends Activity {
             }
         });
         button(body, "Copiar todos os ZIPs para a pasta", () -> copyAll());
+        button(body, "Leitura por IA e debug", () -> startActivity(new Intent(this, AnalysisActivity.class)));
         text(body, "Sobre os dados", 19, true);
         text(body, "Os ZIPs contêm pacotes, UIDs e outros dados privados. Escolha uma pasta local, " +
             "como Documentos/AEMA. Provedores de nuvem podem sincronizar a pasta escolhida. " +

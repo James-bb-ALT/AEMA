@@ -12,6 +12,31 @@ from aema.models import PipelineInputs
 from aema.pipeline import run_pipeline
 
 
+@pytest.mark.parametrize("gpu", [False, True])
+def test_catalog_1_1_import_remains_compatible_but_cannot_claim_gpu_metrics(
+    fixture_dir: Path, tmp_path: Path, gpu: bool
+) -> None:
+    result = run_pipeline(
+        PipelineInputs(
+            fixture_dir / "checkin_v9.csv",
+            fixture_dir / ("battery_report_gpu.txt" if gpu else "battery_report.txt"),
+            fixture_dir / "packages.txt",
+        )
+    )
+    directory = export_canonical_result(result, tmp_path)
+    assert load_dataset(directory)[2]["catalog_version"] == "1.2"
+    path = directory / "manifest.json"
+    manifest = json.loads(path.read_text())
+    manifest["catalog_version"] = "1.1"
+    path.write_text(json.dumps(manifest))
+    if gpu:
+        with pytest.raises(ParseError, match="GPU"):
+            load_dataset(directory)
+    else:
+        records, _, verified = load_dataset(directory)
+        assert len(records) == 88 and verified["catalog_version"] == "1.1"
+
+
 @pytest.mark.parametrize(
     "mutation",
     ["missing_hash", "unlisted_table", "traversal", "count", "schema", "catalog", "format"],

@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from aema.catalog import CATALOG_VERSION
+from aema.catalog import CATALOG_1_2_NEW_METRICS, SUPPORTED_CATALOG_VERSIONS
 from aema.errors import ParseError
 from aema.exporters import MANIFEST_FORMAT_VERSION
 from aema.models import CANONICAL_SCHEMA_VERSION, CanonicalRecord, PackageUidRelation, Source
@@ -46,7 +46,7 @@ def load_dataset(
             raise ParseError("unsupported canonical schema version")
         if manifest["manifest_format_version"] != MANIFEST_FORMAT_VERSION:
             raise ParseError("unsupported manifest format version")
-        if manifest["catalog_version"] != CATALOG_VERSION:
+        if manifest["catalog_version"] not in SUPPORTED_CATALOG_VERSIONS:
             raise ParseError("unsupported metric catalog version")
         hashes = manifest["artifact_sha256"]
         if set(manifest["files"]) != set(hashes):
@@ -60,6 +60,10 @@ def load_dataset(
             if actual != expected:
                 raise ParseError(f"artifact hash mismatch: {name}")
         records = [_record(row) for row in _read_csv(root / "canonical_records.csv")]
+        if manifest["catalog_version"] == "1.1" and any(
+            row.source == Source.POWER and row.metric in CATALOG_1_2_NEW_METRICS for row in records
+        ):
+            raise ParseError("catalog 1.1 does not define GPU metrics")
         relations = [_relation(row) for row in _read_csv(root / "canonical_relations.csv")]
         counts = manifest["counts"]
         if (

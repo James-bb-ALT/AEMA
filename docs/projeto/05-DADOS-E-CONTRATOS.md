@@ -131,9 +131,9 @@ pode duplicar o valor no somatório. O AEMA não inventa uma divisão proporcion
 ## 5.6 Manifesto e verificação do dataset
 
 O manifesto usa `manifest_format_version: 2.0`, `canonical_schema_version: 1.0` e
-`catalog_version: 1.1`. Há 145 entradas de campos no catálogo; nem todas são métricas
+`catalog_version: 1.2`. Há 147 entradas de campos no catálogo; nem todas são métricas
 numéricas, pois também existem identificação e metadados.
-O [inventário completo dos 145 campos](../CATALOGO-COMPLETO.md) foi gerado do catálogo
+O [inventário completo dos 147 campos](../CATALOGO-COMPLETO.md) foi gerado do catálogo
 executável, agrupando fonte, unidade, classificação e tipo de medição.
 
 `load_dataset` confere versões exatas suportadas, igualdade entre lista de arquivos e

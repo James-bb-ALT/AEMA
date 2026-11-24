@@ -27,3 +27,6 @@ captures/
 study-outputs/
 demo-output/
 *.key
+*.gguf
+.cxx/
+**/.cxx/

@@ -1,0 +1,10 @@
+Estimated power use (mAh):
+    Capacity: 3000, Computed drain: 1, actual drain: 1
+    Global
+      GPU: 0.25 apps: 0.10
+      mobile_radio: 0.25 [energy consumption] apps: 0
+      audio: 0.50 apps: 0.50
+    UID 10001: 0.60 ( gpu=0.10 audio=0.50 )
+
+On-battery energy consumer stats (microcoulombs)
+    uid 10001:

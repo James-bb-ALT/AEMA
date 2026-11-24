@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.0.0 — 2026-11-24
+
+Nova etapa de release: leitura local por LLM e debug.
+
+- Qwen3 GGUF por llama.cpp fixado por revisão/hash; execução CPU em processo separado.
+- Tela de leitura, modelo incluído opcional, importação atômica e verificação SHA-256.
+- Fatos de captura verificada, limites de ZIP, prompt sem nomes de pacotes e saída
+  restringida por gramática, com validação posterior de evidência e ações.
+- Cancelamento, prazos, limite de tokens, relatório local e exportação de debug JSON.
+- Debug de coleta/inferência com etapas, hashes, tokens, tempos e memória; sem prompts ou brutos.
+- Licenças do runtime/modelo incluídas, builds com/sem pesos e testes nativos com modelo real.
+- GPU e anotação `[energy consumption]` compatíveis com a captura real Android 15;
+  catálogo 1.2 com importação retrocompatível de datasets 1.1.
+- Versões do app/pacote/documentação sincronizadas; schemas de captura/registro/dataset
+  e dependências existentes preservados.
+
+Não inclui treinamento pessoal, previsão futura validada ou execução automática de sugestões.
+Notas: [`docs/releases/2.0.0.md`](docs/releases/2.0.0.md).
+
 ## Documentação 1.0.2 — 2026-11-24
 
 Melhoria incremental documental; app e pacote AEMA permanecem em 1.0.0.

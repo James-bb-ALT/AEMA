@@ -6,14 +6,16 @@ plugins {
 android {
     namespace 'org.aema.capture'
     compileSdk 35
+    ndkVersion '27.2.12479018'
     defaultConfig {
         applicationId 'org.aema.capture'
         minSdk 26
         targetSdk 35
-        versionCode 10000
-        versionName '1.0.0'
+        versionCode 20000
+        versionName '2.0.0'
         ndk { abiFilters 'arm64-v8a', 'x86_64' }
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        externalNativeBuild { cmake { arguments '-DCMAKE_BUILD_TYPE=Release' } }
     }
     buildFeatures { aidl true; buildConfig true }
     compileOptions {
@@ -36,7 +38,35 @@ android {
     // The same sources used by pytest on the host; no second parser implementation.
     sourceSets { androidTest.assets.srcDir '../../tests/fixtures' }
     testOptions { unitTests.returnDefaultValues = true }
+    externalNativeBuild { cmake { path file('src/main/cpp/CMakeLists.txt'); version '3.22.1' } }
+    androidResources { noCompress += 'gguf' }
+    sourceSets.main.assets.srcDir layout.buildDirectory.dir('generated/modelAssets').get().asFile
 }
+
+// Optional self-contained offline APK. Weights are release inputs, never Git sources.
+tasks.register('bundleLocalModel') {
+    inputs.property('aemaModel', providers.gradleProperty('aemaModel').orElse(''))
+    if (providers.gradleProperty('aemaModel').isPresent()) inputs.file(file(providers.gradleProperty('aemaModel').get()))
+    outputs.dir layout.buildDirectory.dir('generated/modelAssets/models')
+    doLast {
+        def target = layout.buildDirectory.file('generated/modelAssets/models/qwen3.gguf').get().asFile
+        if (providers.gradleProperty('aemaModel').isPresent()) {
+            def source = file(providers.gradleProperty('aemaModel').get())
+            if (!source.isFile()) throw new GradleException('aemaModel must be an existing GGUF file')
+            def hash = java.security.MessageDigest.getInstance('SHA-256')
+            source.withInputStream { stream ->
+                byte[] buffer = new byte[1024 * 1024]
+                int count
+                while ((count = stream.read(buffer)) != -1) hash.update(buffer, 0, count)
+            }
+            if (hash.digest().encodeHex().toString() != '9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031')
+                throw new GradleException('Bundled model must match the official Qwen3-0.6B Q8_0 SHA-256')
+            target.parentFile.mkdirs()
+            java.nio.file.Files.copy(source.toPath(), target.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+        } else if (target.exists() && !target.delete()) throw new GradleException('Cannot remove stale model asset')
+    }
+}
+tasks.named('preBuild').configure { dependsOn 'bundleLocalModel' }
 
 chaquopy {
     defaultConfig {

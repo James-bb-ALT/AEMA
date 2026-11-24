@@ -1,10 +1,10 @@
 # Catálogo completo dos campos
 
-Inventário gerado do catálogo 1.1 do software AEMA 1.0.0 em 24/11/2026.
+Inventário gerado do catálogo 1.2 do software AEMA 2.0.0 em 24/11/2026.
 
 [Índice do manual](README.md) · [Contratos de dados](projeto/05-DADOS-E-CONTRATOS.md)
 
-São 145 campos catalogados entre métricas, identificação e metadados; isso não significa 145 medições elétricas. A fonte normativa executável é `src/aema/catalog.py`. O traço na coluna de unidade significa que o catálogo não define unidade para aquele campo; não se deve inferir uma.
+São 147 campos catalogados entre métricas, identificação e metadados; isso não significa 147 medições elétricas. A fonte normativa executável é `src/aema/catalog.py`. O traço na coluna de unidade significa que o catálogo não define unidade para aquele campo; não se deve inferir uma.
 
 A coluna Classe descreve o papel do campo. Classe de evidência e tipo de medição se aplicam às métricas. Os métodos são os nomes exatos usados na implementação.
 
@@ -96,7 +96,7 @@ A coluna Classe descreve o papel do campo. Classe de evidência e tipo de mediç
 
 Métodos presentes: `batterystats_checkin`.
 
-## Fonte `power` (61 campos)
+## Fonte `power` (63 campos)
 
 | Campo | Unidade | Classe | Evidência / tipo de medição |
 |---|---|---|---|
@@ -125,6 +125,8 @@ Métodos presentes: `batterystats_checkin`.
 | `cpu_foreground_service_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
 | `foreground_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
 | `foreground_service_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
+| `gpu_apps_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
+| `gpu_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
 | `gnss_apps_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
 | `gnss_cached_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |
 | `gnss_estimated_charge_mah` | mAh | `numeric_metric` | estimated / `estimated_or_attributed_charge` |

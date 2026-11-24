@@ -1,4 +1,17 @@
-# Privacidade — AEMA 1.0.0
+# Privacidade — AEMA 2.0.0
+
+## Leitura local por LLM e debug
+
+O modelo roda offline em processo privado. Recebe somente fatos permitidos com IDs de
+componentes/UIDs, sem nomes de pacotes, brutos ou prompts originados dos dumps. Não há
+envio a API. A última leitura salva inclui nomes resolvidos e estimativas; trate-a como
+dado privado. O app não a exporta até o usuário escolher o destino.
+
+Debug guarda até 40 eventos, versões, hashes, horários, tempos, contagens, memória e
+estado da coleta. Não inclui brutos, pacotes ou prompts. Hash e horário podem correlacionar
+uma sessão; esse relatório não equivale ao export pseudonimizado do estudo. Pesos
+importados e relatórios ficam no armazenamento privado, sem backup automático.
+Ver [contrato e controles](../android/LLM-E-DEBUG.md).
 
 ## Dados privados
 

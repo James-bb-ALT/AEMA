@@ -30,9 +30,11 @@ UID_RE = re.compile(rf"^\s*UID\s+([^:]+):\s*({NUMBER_PATTERN})(.*)$", re.IGNOREC
 STATE_RE = re.compile(r"\b(fg|bg|fgs|cached):\s*([^\s,)]+)", re.IGNORECASE)
 DETAIL_RE = re.compile(r"\b([A-Za-z_]+(?::[A-Za-z_]+)?)=([^\s,)]+)")
 GLOBAL_DETAIL_RE = re.compile(
-    rf"^\s*([A-Za-z_]+):\s*({NUMBER_PATTERN})\s+apps:\s*({NUMBER_PATTERN})"
+    rf"^\s*([A-Za-z_]+):\s*({NUMBER_PATTERN})(?:\s+\[energy consumption\])?\s+apps:\s*({NUMBER_PATTERN})"
 )
-GLOBAL_DETAIL_CANDIDATE_RE = re.compile(r"^\s*[A-Za-z_]+:\s*\S+\s+apps:\s*\S+")
+GLOBAL_DETAIL_CANDIDATE_RE = re.compile(
+    r"^\s*[A-Za-z_]+:\s*\S+\s+(?:\[energy consumption\]\s+)?apps:\s*\S+"
+)
 
 
 class BatteryReportParser:

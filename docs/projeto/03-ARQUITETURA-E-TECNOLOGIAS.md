@@ -4,6 +4,11 @@
 
 ## 3.1 Visão do sistema
 
+A versão 2.0.0 acrescenta [`AnalysisActivity`](../../android/app/src/main/java/org/aema/capture/AnalysisActivity.java),
+o núcleo [`aema.llm`](../../src/aema/llm.py) e um processo nativo privado para Qwen3.
+O [guia LLM e debug](../android/LLM-E-DEBUG.md) documenta esse fluxo e seus contratos.
+O diagrama abaixo continua descrevendo a cadeia de coleta compartilhada.
+
 O AEMA tem dois pontos de entrada: um app Android para coleta local periódica e uma CLI
 no computador para parsing, coleta ADB e análise. Ambos utilizam `src/aema/`. A camada
 Android controla permissões, agendamento e arquivos; o núcleo Python interpreta os dados.
@@ -73,9 +78,15 @@ que sejam as versões mais recentes de cada tecnologia.
 | CSV / JSON / JSONL / ZIP | Contratos locais descritos no capítulo 5 | Inspeção, intercâmbio e transferência offline |
 | SHA-256 / HMAC-SHA-256 | Biblioteca padrão Python/Java | Integridade e pseudônimos de estudo, com funções distintas |
 
-Não há backend, banco de dados de aplicação, framework web, modelo de aprendizado de
-máquina, telemetria ou serviço de sincronização implementado. SharedPreferences guarda
+Não há backend, banco de dados de aplicação, framework web, treinamento de aprendizado
+pessoal, telemetria ou serviço de sincronização implementado. Há inferência de LLM com
+pesos gerais, sem ajuste de bateria. SharedPreferences guarda
 apenas estado operacional do app; os dados científicos ficam em arquivos.
+
+Em 2.0.0, NDK 27.2.12479018 e CMake 3.22.1 compilam llama.cpp na revisão
+`0ce7f213b0749fa4dee4e87d8ae7bf63e621c1ad`. As dependências existentes da tabela
+histórica 1.0.0 acima não foram atualizadas. Modelo e hash constam nos
+[avisos de terceiros](../../THIRD_PARTY_NOTICES.md).
 
 ## 3.4 Reutilização do núcleo Python
 

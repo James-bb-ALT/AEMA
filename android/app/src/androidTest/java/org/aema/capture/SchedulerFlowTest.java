@@ -22,6 +22,13 @@ public class SchedulerFlowTest {
         assumeTrue("Authorize Shizuku first", Shizuku.pingBinder() &&
             Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED);
         assumeTrue("Allow exact alarms first", Scheduler.permitted(context));
+        // An idle emulator may report no UID estimates at all. Generate a small,
+        // muted audio workload before requiring a fully parseable UID section.
+        android.media.MediaPlayer player = android.media.MediaPlayer.create(context,
+            android.provider.Settings.System.DEFAULT_NOTIFICATION_URI);
+        assertNotNull("A notification sound is needed for the emulator workload", player);
+        try { player.setVolume(0, 0); player.start(); SystemClock.sleep(1500); }
+        finally { player.release(); }
         long before = System.currentTimeMillis();
         Scheduler.enable(context);
         Scheduler.arm(context, before + 5000);

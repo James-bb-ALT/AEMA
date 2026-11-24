@@ -4,9 +4,28 @@
 
 Os caminhos abaixo são a referência de implementação. Esta documentação explica funções
 e contratos; comentários/docstrings no código continuam úteis para detalhes locais.
-Os algoritmos são determinísticos de parsing e análise descritiva, não modelos de IA.
+O núcleo de parsing e análise descritiva é determinístico. A versão 2.0.0 acrescenta
+seleção de fatos e sugestões por um LLM local, com validação posterior.
 O AEMA extrai as estimativas de carga que o Android já apresenta. Ele não implementa
 um modelo elétrico próprio para recalcular mAh a partir de tempos de CPU, tráfego ou RAM.
+
+## Camada LLM e debug adicionada em 2.0.0
+
+| Código | Responsabilidade |
+|---|---|
+| [`llm.py`](../../src/aema/llm.py) | Verifica ZIP/dataset/brutos, limita expansão, seleciona fatos por eixo e valida seleções do modelo. |
+| [`AnalysisActivity.java`](../../android/app/src/main/java/org/aema/capture/AnalysisActivity.java) | Tela, importação, leitura, cancelamento e exportação. |
+| [`AnalysisController.java`](../../android/app/src/main/java/org/aema/capture/AnalysisController.java) | Integridade, memória, preparação Python, serviço, prazo e persistência. |
+| [`ModelStore.java`](../../android/app/src/main/java/org/aema/capture/ModelStore.java) | Cópia limitada, GGUF v3, hash e modelo privado. |
+| [`AnalysisDebug.java`](../../android/app/src/main/java/org/aema/capture/AnalysisDebug.java) | Até 40 eventos, métricas sem prompts/pacotes e relatório JSON. |
+| [`LlmService.java`](../../android/app/src/main/java/org/aema/capture/LlmService.java) | Processo `:llm`, geração serial, cancelamento e liberação. |
+| [`LlmNative.java`](../../android/app/src/main/java/org/aema/capture/LlmNative.java) | JNI carregado somente no processo nativo. |
+| [`aema_llm.cpp`](../../android/app/src/main/cpp/aema_llm.cpp) | Qwen3/CPU, contexto, gramática, deadline e métricas. |
+| [`CMakeLists.txt`](../../android/app/src/main/cpp/CMakeLists.txt) | Upstream fixado por SHA, CPU e builds ARM64/x86_64. |
+
+As interfaces `ILlmService` e `ILlmCallback`, em `android/app/src/main/aidl/`, transportam
+somente prompt/gramática e resposta/código, sem arquivos grandes por Binder.
+A camada não chama o coletor privilegiado. Ver [contratos e operação](../android/LLM-E-DEBUG.md).
 
 ## 4.1 Pontos de entrada e aquisição Python
 

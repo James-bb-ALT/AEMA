@@ -19,9 +19,9 @@ def test_catalog_covers_all_current_export_columns() -> None:
     result = run_pipeline(
         PipelineInputs(root / "checkin_v9.csv", root / "battery_report.txt", root / "packages.txt")
     )
-    assert CATALOG_VERSION == "1.1"
+    assert CATALOG_VERSION == "1.2"
     assert len(CATALOG) == len({(entry.source, entry.field) for entry in CATALOG})
-    assert len(CATALOG) == 145
+    assert len(CATALOG) == 147
     assert_catalog_covers(result.frames())
 
 
@@ -72,6 +72,22 @@ def test_catalog_rejects_new_column() -> None:
         assert "new_field" in str(exc)
     else:
         raise AssertionError("catalog accepted an uncatalogued column")
+
+
+def test_gpu_and_energy_consumption_annotation_are_preserved(fixture_dir: Path) -> None:
+    result = run_pipeline(
+        PipelineInputs(
+            fixture_dir / "checkin_v9.csv",
+            fixture_dir / "battery_report_gpu.txt",
+            fixture_dir / "packages.txt",
+        )
+    )
+    assert_catalog_covers(result.frames())
+    summary = result.battery_report.records[0]
+    assert summary["gpu_estimated_charge_mah"] == 0.25
+    assert summary["gpu_apps_estimated_charge_mah"] == 0.1
+    assert summary["mobile_radio_estimated_charge_mah"] == 0.25
+    assert result.battery_report.records[1]["gpu_estimated_charge_mah"] == 0.1
 
 
 def test_catalog_covers_extended_public_capture(fixture_dir: Path) -> None:

@@ -51,7 +51,7 @@ def test_canonical_export_round_trip_manifest_and_artifact_hashes(tmp_path: Path
     assert manifest["catalog_version"] == CATALOG_VERSION
     catalog = json.loads((output / "metric_catalog.json").read_text(encoding="utf-8"))
     assert catalog["catalog_version"] == CATALOG_VERSION
-    assert len(catalog["entries"]) == 145
+    assert len(catalog["entries"]) == 147
     assert manifest["counts"]["canonical_records"] == 88
     assert manifest["counts"]["package_uid_relations"] == 3
     assert manifest["counts"]["by_entity"] == {

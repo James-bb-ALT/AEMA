@@ -133,7 +133,9 @@ public final class CaptureService extends Service {
             }
             metadata.put("ended_at_utc", Instant.now().toString());
             metadata.put("ended_elapsed_realtime_ms", android.os.SystemClock.elapsedRealtime());
-            if (!Python.isStarted()) Python.start(new AndroidPlatform(this));
+            synchronized (Python.class) {
+                if (!Python.isStarted()) Python.start(new AndroidPlatform(this));
+            }
             String archive = Python.getInstance().getModule("aema.mobile")
                 .callAttr("publish_capture", staging.getAbsolutePath(),
                     new File(getFilesDir(), "captures").getAbsolutePath(), metadata.toString())
@@ -148,9 +150,14 @@ public final class CaptureService extends Service {
             if (warning.isEmpty() && !"complete".equals(published.optString("parse_status")))
                 warning = "Brutos salvos. Parsing incompatível; veja o manifesto no ZIP.";
             Scheduler.state(this).edit().putString("last_error", warning).apply();
+            AnalysisDebug.event(this, "capture", warning.isEmpty() ? "OK" : "WARNING",
+                new JSONObject().put("command_count", commands.length())
+                    .put("collection_status", metadata.optString("status"))
+                    .put("parse_status", published.optString("parse_status")));
         } catch (Exception error) {
             warning = "Falha ao salvar: " + error.getMessage();
             Scheduler.state(this).edit().putString("last_error", warning).apply();
+            AnalysisDebug.event(this, "capture", "SAVE_FAILED", null);
         } finally {
             if (bound) try { Shizuku.unbindUserService(args, connection, true); }
                 catch (RuntimeException ignored) {}

@@ -2,6 +2,11 @@
 
 **Pesquisa consultada em 24/11/2026 · Documentação 1.0.2 · Software existente 1.0.0.**
 
+**Implementação posterior:** a release 2.0.0 acrescenta
+[leitura local por LLM e debug](../android/LLM-E-DEBUG.md), usando pesos Qwen3 sem ajuste
+pessoal. Este caderno preserva o recorte original da pesquisa. Previsão de seis horas,
+treinamento pessoal e experimentos de economia continuam como trabalho proposto.
+
 O objetivo final informado pelo autor é um assistente pessoal que preveja o consumo
 das próximas **seis horas**, identifique componentes e aplicativos mais consumidores
 e sugira mudanças. As previsões devem funcionar **no telefone, sem internet**, mirando

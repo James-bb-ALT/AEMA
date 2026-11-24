@@ -1,4 +1,6 @@
-# AEMA Android 1.0.0
+# AEMA Android 2.0.0
+
+Para a nova leitura local por IA, modelos e diagnóstico, veja [LLM e debug](LLM-E-DEBUG.md).
 
 ## Operação no telefone
 
@@ -51,7 +53,8 @@ UTC efetivo, atraso e relógios monotônicos, sem prometer sincronismo com instr
 
 ## Compilar
 
-Requisitos: JDK 21, Python 3.13, Android SDK com plataforma 35 e build-tools 36.0.0.
+Requisitos: JDK 21, Python 3.13, Android SDK com plataforma 35 e build-tools 36.0.0,
+NDK 27.2.12479018 e CMake 3.22.1.
 Configure `ANDROID_HOME` ou `android/local.properties`. Não versione caminhos pessoais.
 
 ```powershell
@@ -61,8 +64,8 @@ android\gradlew.bat -p android connectedDebugAndroidTest
 
 No Linux, use `bash android/gradlew`. Chaquopy inclui diretamente `../../src`; não há
 cópia divergente dos parsers. O APK contém os módulos de análise de ensaios, auditoria,
-catálogo, importação e privacidade. A interface desta versão expõe a coleta e o parsing
-automático; a análise científica de estudos permanece no computador.
+catálogo, importação e privacidade. A interface expõe coleta, parsing e leitura por LLM;
+a análise científica de ensaios permanece no computador.
 
 Para release assinada, defina `AEMA_KEYSTORE` e `AEMA_STORE_PASSWORD`, alias `aema`, e rode
 `assembleRelease`. Nenhuma chave ou senha entra no Git. A chave local desta instalação
