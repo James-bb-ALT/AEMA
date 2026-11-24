@@ -29,7 +29,7 @@ def record(**overrides: object) -> CanonicalRecord:
         "unit": Unit.MAH,
         "measurement_kind": MeasurementKind.REPORTED_CAPACITY,
         "source": Source.POWER,
-        "method": None,
+        "method": "batterystats_power_report",
         "uid": None,
         "package_name": None,
         "provenance": Provenance(Source.POWER, HASH, 3),
@@ -115,6 +115,8 @@ def test_pipeline_result_hash_mapping_uses_real_file_hash(source: Source) -> Non
             }[source],
         )
     assert item.provenance.input_sha256 == expected.lower()
+    if source is not Source.PACKAGES:
+        assert item.method in {"batterystats_checkin", "batterystats_power_report"}
 
 
 def test_preserves_shared_uid_package_relations_without_consumption_value() -> None:
@@ -127,4 +129,4 @@ def test_preserves_shared_uid_package_relations_without_consumption_value() -> N
 def test_payload_and_absent_identity_remain_explicit() -> None:
     item = record()
     assert item.uid is None and item.package_name is None
-    assert item.method is None
+    assert item.method == "batterystats_power_report"

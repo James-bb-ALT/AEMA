@@ -19,3 +19,7 @@ class UnsupportedVersionError(ParseError):
 
 class ExportError(AemaError):
     """A complete result set could not be published safely."""
+
+
+class AcquisitionError(AemaError):
+    """An ADB capture or its session manifest is invalid."""

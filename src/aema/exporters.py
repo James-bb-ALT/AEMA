@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import os
 import shutil
 import tempfile
+from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
 from aema.adapters import CanonicalResult, adapt_pipeline
-from aema.catalog import CATALOG_VERSION
+from aema.catalog import AOSP_REFERENCES, CATALOG, CATALOG_VERSION, assert_catalog_covers
 from aema.errors import ExportError
 from aema.models import CANONICAL_SCHEMA_VERSION, PackageUidRelation, PipelineResult, Source
 
@@ -27,6 +29,13 @@ def _write_jsonl(path: Path, rows: list[dict]) -> None:
         ),
         encoding="utf-8",
     )
+
+
+def _write_csv(path: Path, columns: tuple[str, ...], rows: list[dict]) -> None:
+    with path.open("w", encoding="utf-8", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=columns)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def _validate_canonical_result(result: PipelineResult, canonical: CanonicalResult) -> None:
@@ -66,9 +75,16 @@ def export_canonical_result(
     final_dir = root / f"parsed_{stamp}_{uuid4().hex[:8]}"
     temp_dir = Path(tempfile.mkdtemp(prefix=".aema-export-", dir=root))
     try:
-        for filename, frame in result.frames().items():
+        frames = result.frames()
+        assert_catalog_covers(frames)
+        for filename, frame in frames.items():
             frame.to_csv(temp_dir / filename, index=False, encoding="utf-8")
         canonical = adapt_pipeline(result) if canonical is None else canonical
+        if canonical.diagnostics.unknown_numeric_fields:
+            raise ExportError(
+                "uncatalogued numeric metrics: "
+                + ", ".join(canonical.diagnostics.unknown_numeric_fields)
+            )
         _validate_canonical_result(result, canonical)
         _write_jsonl(
             temp_dir / "canonical_records.jsonl", [row.to_dict() for row in canonical.records]
@@ -76,11 +92,46 @@ def export_canonical_result(
         _write_jsonl(
             temp_dir / "canonical_relations.jsonl", [row.to_dict() for row in canonical.relations]
         )
-        diagnostics = {
-            "unknown_numeric_fields": canonical.diagnostics.unknown_numeric_fields,
-            "unknown_numeric_diagnostics": canonical.diagnostics.unknown_numeric_diagnostics,
-            "issues": canonical.diagnostics.issues,
-        }
+        _write_csv(
+            temp_dir / "canonical_records.csv",
+            (
+                "schema_version",
+                "entity",
+                "metric",
+                "value",
+                "unit",
+                "measurement_kind",
+                "source",
+                "method",
+                "uid",
+                "package_name",
+                "input_sha256",
+                "line_number",
+                "payload",
+            ),
+            canonical.to_rows(),
+        )
+        _write_csv(
+            temp_dir / "canonical_relations.csv",
+            ("package_name", "uid", "source", "input_sha256", "line_number"),
+            [relation.to_dict() for relation in canonical.relations],
+        )
+        (temp_dir / "metric_catalog.json").write_text(
+            json.dumps(
+                {
+                    "catalog_version": CATALOG_VERSION,
+                    "references": AOSP_REFERENCES,
+                    "entries": [asdict(entry) for entry in CATALOG],
+                    "interpretation": "No field is verified as a direct electrical measurement.",
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        diagnostics = canonical.diagnostics.as_dict()
         (temp_dir / "canonical_diagnostics.json").write_text(
             json.dumps(diagnostics, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
             encoding="utf-8",
@@ -94,6 +145,7 @@ def export_canonical_result(
         manifest = {
             "created_at_utc": datetime.now(timezone.utc).isoformat(),
             "input_sha256": result.input_hashes,
+            "input_paths": result.input_paths,
             "records": {
                 "checkin": result.checkin.diagnostics.as_dict(),
                 "battery_report": result.battery_report.diagnostics.as_dict(),
@@ -108,11 +160,16 @@ def export_canonical_result(
                 "canonical_records": len(canonical.records),
                 "package_uid_relations": len(canonical.relations),
                 "diagnostic_issues": len(canonical.diagnostics.issues),
+                "by_entity": {
+                    entity: sum(record.entity == entity for record in canonical.records)
+                    for entity in sorted({record.entity for record in canonical.records})
+                }
+                | {"package_uid": len(canonical.relations)},
             },
             "canonical_diagnostics": diagnostics,
             "limitations": [
                 "mAh estimates are not instantaneous current measurements in mA.",
-                "Battery report detail metrics use record-level provenance when exact line is unavailable.",
+                "Metrics parsed from the UID header share that header's source line.",
             ],
         }
         (temp_dir / "manifest.json").write_text(

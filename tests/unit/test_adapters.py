@@ -59,6 +59,15 @@ def test_power_summary_uid_and_uid_text_are_separate() -> None:
     assert uid_charge.unit is Unit.MAH
 
 
+def test_power_details_keep_their_actual_source_lines() -> None:
+    records = adapt_battery_report(pipeline_result()).records
+    by_metric = {item.metric: item.provenance.line_number for item in records}
+    assert by_metric["battery_capacity_mah"] == 3
+    assert by_metric["screen_apps_estimated_charge_mah"] == 5
+    assert by_metric["cpu_estimated_charge_mah"] == 7
+    assert by_metric["wakelock_estimated_charge_mah"] == 9
+
+
 def test_packages_preserve_shared_uid_without_energy_records() -> None:
     result = pipeline_result()
     adapted = adapt_packages(result)

@@ -24,6 +24,17 @@ def test_battery_report_golden_meaning_units_and_multiuser_uid(fixture_dir: Path
     assert {record["measurement_kind"] for record in result.records} == {"estimated_or_attributed"}
 
 
+def test_aosp15_summary_without_vendor_capacity_fields(fixture_dir: Path) -> None:
+    result = BatteryReportParser(fixture_dir / "battery_report_aosp15.txt").parse_result()
+    summary, uid = result.records
+    assert summary["battery_capacity_mah"] == 3000
+    assert summary["actual_drain_min_mah"] == summary["actual_drain_max_mah"] == 0
+    assert "rated_capacity_mah" not in summary
+    assert "typical_capacity_mah" not in summary
+    assert summary["audio_estimated_charge_mah"] == pytest.approx(0.000272)
+    assert uid["audio_estimated_charge_mah"] == pytest.approx(0.000272)
+
+
 @pytest.mark.parametrize(
     "text",
     [

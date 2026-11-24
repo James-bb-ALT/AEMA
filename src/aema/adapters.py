@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from dataclasses import field as dataclass_field
 from typing import Any
 
 from aema.catalog import CATALOG_BY_FIELD
@@ -21,6 +22,17 @@ class CanonicalDiagnostics:
     unknown_numeric_fields: tuple[str, ...] = ()
     unknown_numeric_diagnostics: tuple[tuple[str, str, int | None], ...] = ()
     issues: tuple[str, ...] = ()
+    sources: dict[str, dict[str, Any]] = dataclass_field(default_factory=dict)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "unknown_numeric_fields": list(self.unknown_numeric_fields),
+            "unknown_numeric_diagnostics": [
+                list(item) for item in self.unknown_numeric_diagnostics
+            ],
+            "issues": list(self.issues),
+            "sources": self.sources,
+        }
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,6 +67,7 @@ def _record(
     *,
     uid: int | None,
     payload: dict[str, Any],
+    line_number: int | None = None,
 ) -> CanonicalRecord:
     entry = CATALOG_BY_FIELD[(source.value, field)]
     return CanonicalRecord.from_pipeline_result(
@@ -65,8 +78,9 @@ def _record(
         value=value,
         unit=Unit(entry.unit) if entry.unit is not None else None,
         measurement_kind=MeasurementKind(entry.measurement_kind),
+        method=entry.method,
         uid=uid,
-        line_number=raw.get("line_number"),
+        line_number=raw.get("line_number") if line_number is None else line_number,
         payload=payload,
     )
 
@@ -128,7 +142,7 @@ def adapt_battery_report(result: PipelineResult) -> CanonicalResult:
     records: list[CanonicalRecord] = []
     unknown: set[str] = set()
     unknown_details: set[tuple[str, str, int | None]] = set()
-    for raw in result.battery_report.records:
+    for index, raw in enumerate(result.battery_report.records):
         uid = raw.get("uid")
         context = {
             key: raw[key]
@@ -150,7 +164,16 @@ def adapt_battery_report(result: PipelineResult) -> CanonicalResult:
             if entry.metric is None:
                 continue
             records.append(
-                _record(result, Source.POWER, field, value, raw, uid=uid, payload=context)
+                _record(
+                    result,
+                    Source.POWER,
+                    field,
+                    value,
+                    raw,
+                    uid=uid,
+                    payload=context,
+                    line_number=result.battery_report.field_line_numbers.get((index, field)),
+                )
             )
     return CanonicalResult(
         records=tuple(records),
@@ -212,6 +235,11 @@ def adapt_pipeline(result: PipelineResult) -> CanonicalResult:
             | set(power.diagnostics.unknown_numeric_diagnostics)
         ),
         tuple(dict.fromkeys(issues)),
+        {
+            "checkin": result.checkin.diagnostics.as_dict(),
+            "battery_report": result.battery_report.diagnostics.as_dict(),
+            "packages": result.packages.diagnostics.as_dict(),
+        },
     )
     return CanonicalResult(
         records=checkin.records + power.records,

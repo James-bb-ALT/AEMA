@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-CATALOG_VERSION = "1.0"
+CATALOG_VERSION = "1.1"
+
+AOSP_REFERENCES = {
+    "power_profiles": "https://source.android.com/docs/core/power",
+    "power_values": "https://source.android.com/docs/core/power/values",
+    "power_stats_hal": "https://source.android.com/docs/core/power/power-stats-hal",
+}
 
 
 @dataclass(frozen=True, slots=True)
@@ -22,6 +28,7 @@ class CatalogEntry:
     line_number: str | None
     input_sha256: str
     classification: str
+    evidence_class: str
     note: str | None = None
 
 
@@ -38,6 +45,20 @@ def _entry(
     entity = {"checkin": "checkin_record", "power": "power_record", "packages": "package_uid"}[
         frame
     ]
+    if classification == "numeric_metric":
+        evidence_class = (
+            "estimated"
+            if field.endswith("_mah")
+            and field not in {"battery_capacity_mah", "rated_capacity_mah", "typical_capacity_mah"}
+            else "proxy"
+        )
+        method = {
+            "checkin": "batterystats_checkin",
+            "power": "batterystats_power_report",
+        }[frame]
+    else:
+        evidence_class = classification
+        method = "pm_package_uid_listing" if frame == "packages" else None
     return CatalogEntry(
         field,
         entity,
@@ -46,12 +67,13 @@ def _entry(
         unit,
         kind,
         frame,
-        None,
+        method,
         "uid" if field == "uid" else None,
         "package_name" if field == "package_name" else None,
         "line_number" if field == "line_number" else None,
         "manifest.input_sha256",
         classification,
+        evidence_class,
         note,
     )
 
@@ -59,6 +81,7 @@ def _entry(
 _CHECKIN = """anr_count background_partial_count background_partial_current_duration_ms background_partial_max_duration_ms background_partial_time_ms background_partial_total_duration_ms bluetooth_rx_bytes bluetooth_tx_bytes category checkin_version connectivity_change_count crash_count deep_idle_mode_count deep_idle_mode_time_ms deep_idling_count deep_idling_time_ms estimated_charge_mah foreground_time_ms full_count full_current_duration_ms full_max_duration_ms full_time_ms full_total_duration_ms full_wakelock_time_ms interactive_time_ms is_hidden_or_system_consumer light_idle_mode_count light_idle_mode_time_ms light_idling_count light_idling_time_ms line_number longest_deep_idle_time_ms longest_light_idle_time_ms mobile_active_count mobile_active_time_us mobile_background_rx_bytes mobile_background_rx_packets mobile_background_tx_bytes mobile_background_tx_packets mobile_radio_active_adjusted_time_ms mobile_radio_active_count mobile_radio_active_time_ms mobile_radio_active_unknown_time_ms mobile_rx_bytes mobile_rx_packets mobile_tx_bytes mobile_tx_packets mobile_wakeup_count partial_count partial_current_duration_ms partial_max_duration_ms partial_time_ms partial_total_duration_ms partial_wakelock_time_ms phone_on_time_ms power_item power_save_enabled_time_ms process_name proportional_estimated_charge_mah screen_estimated_charge_mah screen_on_time_ms start_count system_time_ms tag uid user_time_ms wakelock_name wifi_background_rx_bytes wifi_background_rx_packets wifi_background_tx_bytes wifi_background_tx_packets wifi_rx_bytes wifi_rx_packets wifi_tx_bytes wifi_tx_packets wifi_wakeup_count window_count window_current_duration_ms window_max_duration_ms window_time_ms window_total_duration_ms""".split()
 _POWER = """actual_drain_max_mah actual_drain_min_mah background_estimated_charge_mah battery_capacity_mah computed_drain_mah cpu_estimated_charge_mah cpu_foreground_estimated_charge_mah foreground_estimated_charge_mah line_number measurement_kind rated_capacity_mah record_type screen_apps_estimated_charge_mah screen_estimated_charge_mah total_estimated_charge_mah typical_capacity_mah uid uid_text unit wakelock_estimated_charge_mah wifi_estimated_charge_mah""".split()
 _PACKAGES = ["line_number", "package_name", "uid"]
+_POWER_EXTRA = """ambient_display_apps_estimated_charge_mah ambient_display_estimated_charge_mah audio_apps_estimated_charge_mah audio_estimated_charge_mah bluetooth_apps_estimated_charge_mah bluetooth_background_estimated_charge_mah bluetooth_estimated_charge_mah bluetooth_foreground_estimated_charge_mah bluetooth_foreground_service_estimated_charge_mah cached_estimated_charge_mah camera_apps_estimated_charge_mah camera_estimated_charge_mah cpu_apps_estimated_charge_mah cpu_background_estimated_charge_mah cpu_cached_estimated_charge_mah cpu_foreground_service_estimated_charge_mah foreground_service_estimated_charge_mah gnss_apps_estimated_charge_mah gnss_cached_estimated_charge_mah gnss_estimated_charge_mah gnss_foreground_estimated_charge_mah gnss_foreground_service_estimated_charge_mah idle_apps_estimated_charge_mah idle_estimated_charge_mah mobile_radio_apps_estimated_charge_mah mobile_radio_background_estimated_charge_mah mobile_radio_cached_estimated_charge_mah mobile_radio_estimated_charge_mah mobile_radio_foreground_estimated_charge_mah mobile_radio_foreground_service_estimated_charge_mah sensors_apps_estimated_charge_mah sensors_estimated_charge_mah video_apps_estimated_charge_mah video_estimated_charge_mah wakelock_apps_estimated_charge_mah wifi_apps_estimated_charge_mah wifi_background_estimated_charge_mah wifi_cached_estimated_charge_mah wifi_foreground_estimated_charge_mah wifi_foreground_service_estimated_charge_mah""".split()
 
 
 def _unit(field: str) -> str | None:
@@ -148,7 +171,7 @@ CATALOG: tuple[CatalogEntry, ...] = tuple(
             kind=_measurement_kind(f, "power"),
             note="source exposes field name but no independent unit" if f == "uid_text" else None,
         )
-        for f in _POWER
+        for f in _POWER + _POWER_EXTRA
     ]
     + [
         _entry(

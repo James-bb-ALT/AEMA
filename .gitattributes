@@ -1,0 +1,12 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.gradle text eol=lf
+*.aidl text eol=lf
+*.sh text eol=lf
+gradlew text eol=lf
+*.bat text eol=crlf
+tests/fixtures/** text eol=lf
+*.jar binary

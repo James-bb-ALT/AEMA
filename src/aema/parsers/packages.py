@@ -40,7 +40,7 @@ class PackageUidParser:
                         message = f"{self.file_path}:{line_number}: invalid package/UID record"
                         if self.strict:
                             raise ParseError(message)
-                        diagnostics.warnings.append(message)
+                        diagnostics.reject(line_number, message)
                         continue
                     package_name, raw_uid = match.groups()
                     uid = parse_int(raw_uid, "uid")
@@ -53,6 +53,7 @@ class PackageUidParser:
                     records.append(
                         {"package_name": package_name, "uid": uid, "line_number": line_number}
                     )
+                    diagnostics.accepted_lines.append(line_number)
         except UnicodeDecodeError as exc:
             raise ParseError(f"cannot decode {self.file_path}: {exc}") from exc
         except OSError as exc:

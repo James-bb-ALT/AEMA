@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from aema.adapters import adapt_pipeline
 from aema.catalog import (
     CATALOG,
     CATALOG_BY_FIELD,
@@ -18,9 +19,9 @@ def test_catalog_covers_all_current_export_columns() -> None:
     result = run_pipeline(
         PipelineInputs(root / "checkin_v9.csv", root / "battery_report.txt", root / "packages.txt")
     )
-    assert CATALOG_VERSION == "1.0"
+    assert CATALOG_VERSION == "1.1"
     assert len(CATALOG) == len({(entry.source, entry.field) for entry in CATALOG})
-    assert len(CATALOG) == 105
+    assert len(CATALOG) == 145
     assert_catalog_covers(result.frames())
 
 
@@ -45,10 +46,15 @@ def test_catalog_metadata_semantics() -> None:
         by_field[("power", "cpu_estimated_charge_mah")].measurement_kind
         == "estimated_or_attributed_charge"
     )
-    assert all(entry.method is None for entry in CATALOG)
+    assert all(entry.method for entry in CATALOG if entry.classification == "numeric_metric")
+    assert {
+        entry.evidence_class for entry in CATALOG if entry.classification == "numeric_metric"
+    } == {"estimated", "proxy"}
+    assert not any(entry.evidence_class == "measured" for entry in CATALOG)
     for entry in CATALOG:
         if entry.classification == "numeric_metric":
             assert entry.metric and entry.measurement_kind
+            assert entry.unit is not None
         else:
             assert entry.metric is None and entry.measurement_kind is None
 
@@ -66,3 +72,18 @@ def test_catalog_rejects_new_column() -> None:
         assert "new_field" in str(exc)
     else:
         raise AssertionError("catalog accepted an uncatalogued column")
+
+
+def test_catalog_covers_real_capture() -> None:
+    result = run_pipeline(
+        PipelineInputs(Path("stats.csv"), Path("stats.txt"), Path("packageUID.txt"))
+    )
+    assert_catalog_covers(result.frames())
+    canonical = adapt_pipeline(result)
+    assert canonical.diagnostics.unknown_numeric_fields == ()
+    assert {record.method for record in canonical.records} == {
+        "batterystats_checkin",
+        "batterystats_power_report",
+    }
+    assert any(record.metric == "cpu_apps_estimated_charge_mah" for record in canonical.records)
+    assert any(record.metric == "bluetooth_estimated_charge_mah" for record in canonical.records)

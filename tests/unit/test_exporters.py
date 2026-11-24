@@ -9,7 +9,8 @@ import pytest
 
 import aema.exporters as exporters
 from aema.catalog import CATALOG_VERSION
-from aema.errors import ExportError
+from aema.dataset import load_dataset
+from aema.errors import ExportError, ParseError
 from aema.exporters import export_canonical_result, export_pipeline_result
 from aema.models import (
     CANONICAL_SCHEMA_VERSION,
@@ -48,8 +49,17 @@ def test_canonical_export_round_trip_manifest_and_artifact_hashes(tmp_path: Path
     assert manifest["manifest_format_version"] == "2.0"
     assert manifest["canonical_schema_version"] == CANONICAL_SCHEMA_VERSION
     assert manifest["catalog_version"] == CATALOG_VERSION
+    catalog = json.loads((output / "metric_catalog.json").read_text(encoding="utf-8"))
+    assert catalog["catalog_version"] == CATALOG_VERSION
+    assert len(catalog["entries"]) == 145
     assert manifest["counts"]["canonical_records"] == 88
     assert manifest["counts"]["package_uid_relations"] == 3
+    assert manifest["counts"]["by_entity"] == {
+        "checkin_record": 72,
+        "power_record": 16,
+        "package_uid": 3,
+    }
+    assert manifest["input_paths"]["battery_report"] == str((root / "battery_report.txt").resolve())
     assert set(manifest["files"]) == set(manifest["artifact_sha256"])
     for filename, digest in manifest["artifact_sha256"].items():
         assert digest == hashlib.sha256((output / filename).read_bytes()).hexdigest().upper()
@@ -68,6 +78,22 @@ def test_canonical_export_round_trip_manifest_and_artifact_hashes(tmp_path: Path
     assert len(relations) == manifest["counts"]["package_uid_relations"]
     assert [item.to_dict() for item in relations] == relation_rows
     assert manifest["limitations"]
+    csv_records, csv_relations, restored_manifest = load_dataset(output)
+    assert [item.to_dict() for item in csv_records] == rows
+    assert [item.to_dict() for item in csv_relations] == relation_rows
+    assert restored_manifest == manifest
+
+
+def test_dataset_import_rejects_modified_artifact(tmp_path: Path) -> None:
+    root = Path("tests/fixtures")
+    result = run_pipeline(
+        PipelineInputs(root / "checkin_v9.csv", root / "battery_report.txt", root / "packages.txt")
+    )
+    output = export_canonical_result(result, tmp_path)
+    with (output / "canonical_records.csv").open("a", encoding="utf-8") as stream:
+        stream.write("tampered\n")
+    with pytest.raises(ParseError, match="artifact hash mismatch"):
+        load_dataset(output)
 
 
 def test_canonical_export_preserves_historical_csv_golden(tmp_path: Path) -> None:
@@ -83,6 +109,17 @@ def test_canonical_export_preserves_historical_csv_golden(tmp_path: Path) -> Non
         "package_uid_parsed.csv",
     ):
         assert (output / filename).read_bytes() == (golden / filename).read_bytes()
+
+
+def test_uncatalogued_metric_prevents_publication(tmp_path: Path) -> None:
+    root = Path("tests/fixtures")
+    result = run_pipeline(
+        PipelineInputs(root / "checkin_v9.csv", root / "battery_report.txt", root / "packages.txt")
+    )
+    result.battery_report.records[0]["new_estimated_charge_mah"] = 1.0
+    with pytest.raises(ExportError, match="uncatalogued"):
+        export_canonical_result(result, tmp_path)
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_canonical_export_rejects_result_from_other_execution(tmp_path: Path) -> None:

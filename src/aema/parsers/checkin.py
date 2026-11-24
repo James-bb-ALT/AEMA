@@ -55,16 +55,17 @@ class CheckinParser:
                             version = row_version
                             continue
                         if tag not in SUPPORTED_TAGS:
-                            diagnostics.add_unsupported_tag(tag or "<empty>")
+                            diagnostics.add_unsupported_tag(tag or "<empty>", line_number)
                             continue
                         records.append(self._parse_supported(row, line_number))
+                        diagnostics.accepted_lines.append(line_number)
                     except (ParseError, ValueError) as exc:
                         message = f"{self.file_path}:{line_number}: {exc}"
                         if isinstance(exc, UnsupportedVersionError):
                             raise UnsupportedVersionError(message) from exc
                         if self.strict:
                             raise ParseError(message) from exc
-                        diagnostics.warnings.append(message)
+                        diagnostics.reject(line_number, message)
         except UnicodeDecodeError as exc:
             raise ParseError(f"cannot decode {self.file_path}: {exc}") from exc
         except OSError as exc:

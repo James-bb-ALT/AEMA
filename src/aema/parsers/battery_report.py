@@ -20,9 +20,10 @@ from aema.normalization import (
 
 SECTION_HEADER = "Estimated power use (mAh):"
 CAPACITY_RE = re.compile(
-    rf"^\s*Capacity:\s*({NUMBER_PATTERN}),\s*Rated:\s*({NUMBER_PATTERN}),\s*"
-    rf"Typical:\s*({NUMBER_PATTERN}),\s*Computed drain:\s*({NUMBER_PATTERN}),\s*"
-    rf"actual drain:\s*({NUMBER_PATTERN})-({NUMBER_PATTERN})\s*$",
+    rf"^\s*Capacity:\s*({NUMBER_PATTERN}),\s*"
+    rf"(?:Rated:\s*({NUMBER_PATTERN}),\s*)?"
+    rf"(?:Typical:\s*({NUMBER_PATTERN}),\s*)?Computed drain:\s*({NUMBER_PATTERN}),\s*"
+    rf"actual drain:\s*({NUMBER_PATTERN})(?:-({NUMBER_PATTERN}))?\s*$",
     re.IGNORECASE,
 )
 UID_RE = re.compile(rf"^\s*UID\s+([^:]+):\s*({NUMBER_PATTERN})(.*)$", re.IGNORECASE)
@@ -45,6 +46,7 @@ class BatteryReportParser:
     def parse_result(self) -> ParseResult:
         diagnostics = ParseDiagnostics(source=str(self.file_path))
         records: list[Record] = []
+        field_line_numbers: dict[tuple[int, str], int] = {}
         in_section = False
         found_summary = False
         current_uid: Record | None = None
@@ -66,6 +68,7 @@ class BatteryReportParser:
                         match = CAPACITY_RE.match(line)
                         if match:
                             records.append(self._summary_record(match, line_number))
+                            diagnostics.accepted_lines.append(line_number)
                             found_summary = True
                             continue
                     uid_match = UID_RE.match(line)
@@ -74,21 +77,29 @@ class BatteryReportParser:
                         try:
                             current_uid = self._uid_record(uid_match, line_number)
                             records.append(current_uid)
+                            diagnostics.accepted_lines.append(line_number)
                         except (ParseError, ValueError) as exc:
                             message = f"{self.file_path}:{line_number}: {exc}"
                             if self.strict:
                                 raise ParseError(message) from exc
-                            diagnostics.warnings.append(message)
+                            diagnostics.reject(line_number, message)
                         continue
                     if line.lstrip().lower().startswith("uid "):
                         current_uid = None
                         message = f"{self.file_path}:{line_number}: malformed UID power record"
                         if self.strict:
                             raise ParseError(message)
-                        diagnostics.warnings.append(message)
+                        diagnostics.reject(line_number, message)
                         continue
                     if current_uid is not None:
-                        self._add_uid_details(current_uid, line, line_number, diagnostics)
+                        detail_fields = self._add_uid_details(
+                            current_uid, line, line_number, diagnostics
+                        )
+                        field_line_numbers.update(
+                            {(len(records) - 1, key): line_number for key in detail_fields}
+                        )
+                        if detail_fields:
+                            diagnostics.accepted_lines.append(line_number)
                         continue
                     global_match = GLOBAL_DETAIL_RE.match(line)
                     if global_match and records:
@@ -104,15 +115,17 @@ class BatteryReportParser:
                             message = f"{self.file_path}:{line_number}: {exc}"
                             if self.strict:
                                 raise ParseError(message) from exc
-                            diagnostics.warnings.append(message)
+                            diagnostics.reject(line_number, message)
                             continue
                         records[0].update(values)
+                        field_line_numbers.update({(0, key): line_number for key in values})
+                        diagnostics.accepted_lines.append(line_number)
                         continue
                     if GLOBAL_DETAIL_CANDIDATE_RE.match(line):
                         message = f"{self.file_path}:{line_number}: malformed global power record"
                         if self.strict:
                             raise ParseError(message)
-                        diagnostics.warnings.append(message)
+                        diagnostics.reject(line_number, message)
         except UnicodeDecodeError as exc:
             raise ParseError(f"cannot decode {self.file_path}: {exc}") from exc
         except OSError as exc:
@@ -126,7 +139,7 @@ class BatteryReportParser:
             raise ParseError(f"{self.file_path}: no UID estimates found")
         diagnostics.parsed_records = len(records)
         self.diagnostics = diagnostics
-        return ParseResult(records, diagnostics)
+        return ParseResult(records, diagnostics, field_line_numbers)
 
     def parse(self) -> pd.DataFrame:
         """Compatibility convenience returning a DataFrame."""
@@ -154,10 +167,15 @@ class BatteryReportParser:
             "actual_drain_min_mah",
             "actual_drain_max_mah",
         )
+        values = list(match.groups())
+        # AOSP may print one actual-drain value when both bounds are equal.
+        if values[-1] is None:
+            values[-1] = values[-2]
         record.update(
             {
                 name: parse_float(value, name)
-                for name, value in zip(names, match.groups(), strict=True)
+                for name, value in zip(names, values, strict=True)
+                if value is not None
             }
         )
         return record
@@ -182,7 +200,7 @@ class BatteryReportParser:
         line: str,
         line_number: int,
         diagnostics: ParseDiagnostics,
-    ) -> None:
+    ) -> tuple[str, ...]:
         pending: Record = {}
         for key, value in DETAIL_RE.findall(line):
             normalized = normalize_power_key(key)
@@ -190,7 +208,7 @@ class BatteryReportParser:
                 message = f"{self.file_path}:{line_number}: duplicate detail key {key!r}"
                 if self.strict:
                     raise ParseError(message)
-                diagnostics.warnings.append(message)
+                diagnostics.reject(line_number, message)
                 continue
             try:
                 pending[normalized] = parse_float(value, key)
@@ -198,6 +216,7 @@ class BatteryReportParser:
                 message = f"{self.file_path}:{line_number}: {exc}"
                 if self.strict:
                     raise ParseError(message) from exc
-                diagnostics.warnings.append(message)
-                return
+                diagnostics.reject(line_number, message)
+                return ()
         record.update(pending)
+        return tuple(pending)

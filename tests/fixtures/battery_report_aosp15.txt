@@ -1,0 +1,5 @@
+Estimated power use (mAh):
+    Capacity: 3000, Computed drain: 0, actual drain: 0
+    Global
+      audio: 0.000272 apps: 0.000272
+    UID 1000: 0.000272 ( audio=0.000272 )

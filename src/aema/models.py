@@ -140,6 +140,8 @@ class CanonicalRecord:
             raise ValueError(f"unit incompatible with catalog metric {self.metric}")
         if self.measurement_kind.value != entry.measurement_kind:
             raise ValueError(f"measurement kind incompatible with catalog metric {self.metric}")
+        if self.method != entry.method:
+            raise ValueError(f"method incompatible with catalog metric {self.metric}")
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -218,6 +220,8 @@ class CanonicalRecord:
         line_number: int | None = None,
         payload: dict[str, Any] | None = None,
     ) -> CanonicalRecord:
+        from aema.catalog import CATALOG_BY_FIELD
+
         hash_key = {
             Source.CHECKIN: "checkin",
             Source.POWER: "battery_report",
@@ -227,6 +231,10 @@ class CanonicalRecord:
             input_sha256 = pipeline_result.input_hashes[hash_key]
         except KeyError as exc:
             raise ValueError(f"missing pipeline hash for source {source.value}") from exc
+        if method is None:
+            entry = CATALOG_BY_FIELD.get((source.value, metric))
+            if entry is not None:
+                method = entry.method
         return cls(
             entity,
             metric,
@@ -305,10 +313,19 @@ class ParseDiagnostics:
     skipped_empty_lines: int = 0
     unsupported_tags: dict[str, int] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
+    accepted_lines: list[int] = field(default_factory=list)
+    rejected_lines: list[int] = field(default_factory=list)
+    unsupported_lines: list[int] = field(default_factory=list)
 
-    def add_unsupported_tag(self, tag: str) -> None:
+    def add_unsupported_tag(self, tag: str, line_number: int | None = None) -> None:
         """Count a valid check-in tag that this package does not claim to support."""
         self.unsupported_tags[tag] = self.unsupported_tags.get(tag, 0) + 1
+        if line_number is not None:
+            self.unsupported_lines.append(line_number)
+
+    def reject(self, line_number: int, message: str) -> None:
+        self.rejected_lines.append(line_number)
+        self.warnings.append(message)
 
     def as_dict(self) -> dict[str, Any]:
         """Return a JSON-serializable representation."""
@@ -319,6 +336,9 @@ class ParseDiagnostics:
             "skipped_empty_lines": self.skipped_empty_lines,
             "unsupported_tags": dict(sorted(self.unsupported_tags.items())),
             "warnings": self.warnings.copy(),
+            "accepted_lines": self.accepted_lines.copy(),
+            "rejected_lines": self.rejected_lines.copy(),
+            "unsupported_lines": self.unsupported_lines.copy(),
         }
 
 
@@ -328,6 +348,7 @@ class ParseResult:
 
     records: list[Record]
     diagnostics: ParseDiagnostics
+    field_line_numbers: dict[tuple[int, str], int] = field(default_factory=dict)
 
     def to_frame(self) -> pd.DataFrame:
         """Create a DataFrame without changing domain values."""
@@ -351,6 +372,7 @@ class PipelineResult:
     battery_report: ParseResult
     packages: ParseResult
     input_hashes: dict[str, str]
+    input_paths: dict[str, str] = field(default_factory=dict)
 
     def frames(self) -> dict[str, pd.DataFrame]:
         """Return stable output names and their DataFrames."""
