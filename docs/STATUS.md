@@ -3,6 +3,9 @@
 Atualizado em 24 de novembro de 2026. Este arquivo descreve o estado atual; documentos
 de auditoria/refatoração e o baseline do roadmap são registros históricos.
 
+Documentação completa: [índice do manual](README.md), edição **1.0.1**, cobrindo objeto,
+hipóteses propostas, métodos, arquitetura, código e contratos do software **1.0.0**.
+
 ## Implementado
 
 - Núcleo Python compartilhado por host e Android: parsing check-in v9, relatório de

@@ -1,0 +1,10 @@
+{
+  "protocol_id": "exemplo-sintetico-nao-e-estudo-aprovado",
+  "purpose": "synthetic_demonstration_only_not_scientific_results",
+  "status": "frozen",
+  "planned_trials": {
+    "idle_sintetico": ["idle-1", "idle-2", "idle-3"],
+    "cpu_sintetico": ["cpu-1", "cpu-2", "cpu-3"]
+  },
+  "allowed_exclusion_reasons": ["marcador temporal ausente no exemplo"]
+}

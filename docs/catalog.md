@@ -1,5 +1,10 @@
 # Catálogo canônico R-204.1
 
+> Registro histórico da etapa R-204.1. O catálogo atual do software 1.0.0 é a versão
+> **1.1**, documentada no [inventário completo](CATALOGO-COMPLETO.md) e nos
+> [contratos atuais](projeto/05-DADOS-E-CONTRATOS.md). O texto abaixo preserva o estado
+> anterior; suas exceções e versão não devem ser usadas como descrição atual.
+
 Versão `1.0`. O catálogo em `src/aema/catalog.py` inventaria, por DataFrame, cada coluna atualmente exportada.
 Cada entrada mapeia campo para entidade, métrica/valor, unidade, classe de medição, origem e proveniência.
 

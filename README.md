@@ -7,6 +7,14 @@ algoritmos Python de parsing, normalização, catálogo, diagnóstico e exporta�
 Os valores em mAh são estimativas/atribuições do Android. Não são medições diretas de
 corrente, potência ou energia. A validação com referência elétrica externa continua pendente.
 
+## Documentação do projeto
+
+O [manual completo](docs/README.md), edição documental **1.0.1**, descreve objeto de estudo,
+objetivos, hipóteses propostas, metodologia, arquitetura, tecnologias, código, algoritmos,
+dados, operação e limites. O software documentado permanece em **1.0.0**.
+Comece por [Objeto e hipóteses](docs/projeto/01-OBJETO-E-HIPOTESES.md) para o contexto
+científico ou por [Código e algoritmos](docs/projeto/04-CODIGO-E-ALGORITMOS.md) para manutenção.
+
 ## App Android
 
 Requisitos: Android 8 ou posterior, dispositivo ARM64 (ou emulador x86_64) e

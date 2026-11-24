@@ -1,5 +1,18 @@
 # Changelog
 
+## Documentação 1.0.1 — 2026-11-24
+
+Melhoria incremental da documentação; software AEMA 1.0.0 preservado.
+
+- Manual completo com objeto de estudo, objetivos e hipóteses candidatas, sem apresentá-las como aprovadas.
+- Metodologia implementada e proposta, controles, fórmulas, incerteza, overhead e limites de generalização.
+- Mapa de todos os módulos Python e componentes Android, tecnologias, versões, arquivos e contratos.
+- Catálogo documental dos 145 campos gerado do catálogo executável 1.1.
+- Instruções de reprodução, exemplos sintéticos de ledger/protocolo, referências e glossário.
+- Navegação central e distinção explícita entre implementação, verificação, proposta e histórico.
+
+Notas: [`docs/releases/docs-1.0.1.md`](docs/releases/docs-1.0.1.md).
+
 ## 1.0.0 — 2026-11-24
 
 Nova etapa de release, conforme a classificação do projeto: app Android e evolução ampla.
