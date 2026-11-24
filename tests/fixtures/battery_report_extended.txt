@@ -1,0 +1,23 @@
+Estimated power use (mAh):
+  Capacity: 4000, Rated: 3900, Typical: 4000, Computed drain: 12, actual drain: 10-15
+  Global
+    screen: 1 apps: 0.5
+    cpu: 1 apps: 0.5
+    wifi: 1 apps: 0.5
+    bluetooth: 1 apps: 0.5
+    mobile_radio: 1 apps: 0.5
+    gnss: 1 apps: 0.5
+    sensors: 1 apps: 0.5
+    audio: 1 apps: 0.5
+    video: 1 apps: 0.5
+    camera: 1 apps: 0.5
+    wakelock: 1 apps: 0.5
+    idle: 1 apps: 0.5
+    ambient_display: 1 apps: 0.5
+  UID 10001: 2.5 fg: 1 bg: 0.5 fgs: 0.5 cached: 0.5
+    cpu=1 cpu:fg=0.4 cpu:bg=0.3 cpu:fgs=0.2 cpu:cached=0.1
+    wifi=1 wifi:fg=0.4 wifi:bg=0.3 wifi:fgs=0.2 wifi:cached=0.1
+    bluetooth=1 bluetooth:fg=0.4 bluetooth:bg=0.3 bluetooth:fgs=0.2
+    mobile_radio=1 mobile_radio:fg=0.4 mobile_radio:bg=0.3 mobile_radio:fgs=0.2 mobile_radio:cached=0.1
+    gnss=1 gnss:fg=0.4 gnss:fgs=0.2 gnss:cached=0.1
+    wakelock=1

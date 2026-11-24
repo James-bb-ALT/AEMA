@@ -74,9 +74,13 @@ def test_catalog_rejects_new_column() -> None:
         raise AssertionError("catalog accepted an uncatalogued column")
 
 
-def test_catalog_covers_real_capture() -> None:
+def test_catalog_covers_extended_public_capture(fixture_dir: Path) -> None:
     result = run_pipeline(
-        PipelineInputs(Path("stats.csv"), Path("stats.txt"), Path("packageUID.txt"))
+        PipelineInputs(
+            fixture_dir / "checkin_v9.csv",
+            fixture_dir / "battery_report_extended.txt",
+            fixture_dir / "packages.txt",
+        )
     )
     assert_catalog_covers(result.frames())
     canonical = adapt_pipeline(result)

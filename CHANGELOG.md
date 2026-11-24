@@ -13,6 +13,7 @@ Nova etapa de release, conforme a classificação do projeto: app Android e evol
 - Pseudonimização HMAC por estudo, exportação por lista de campos permitidos e testes de vazamento.
 - Importação exige hashes de ambas as tabelas canônicas; testes de adulteração do manifesto.
 - Instalação Python corrigida, cobertura acima de 90%, testes Android e CI.
+- Regressão ampliada de energia usa fixture sintética publicável, sem depender de dumps privados no CI.
 - README, privacidade, compatibilidade, estado e instruções atualizados e versionados.
 
 Dependências do host e versões de schemas/catálogo não alterados são preservadas. O APK
