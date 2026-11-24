@@ -12,7 +12,7 @@ corrente, potência ou energia. A validação com referência elétrica externa 
 Requisitos: Android 8 ou posterior, dispositivo ARM64 (ou emulador x86_64) e
 [Shizuku](https://shizuku.rikka.app/download/) instalado, iniciado e autorizado.
 
-1. Instale o APK da [release](https://github.com/jaimevictor/AEMA/releases).
+1. Instale o APK da [release](https://github.com/James-bb-ALT/AEMA/releases).
 2. Abra o AEMA e autorize Shizuku, escolha uma pasta local, permita alarmes e notificações.
 3. Ative a coleta automática. A primeira começa imediatamente; as seguintes seguem a cadência de 6 horas.
 
