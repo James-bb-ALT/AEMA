@@ -27,8 +27,9 @@ delimitados, o demo e os dois exemplos de análise/auditoria. Os seis ensaios si
 foram auditados com uma exclusão prevista, preservando dois pares de repouso e três de CPU.
 
 A suíte Python passou com **167 testes e 92,16% de cobertura**. Esta edição não altera
-código de runtime; não foi gerado um novo APK nem repetido o ensaio instrumentado por
-uma mudança exclusivamente documental. Os cenários Android citados pertencem à evidência
+código de runtime nem publica uma nova versão de APK. Os ensaios instrumentados não foram
+repetidos para uma mudança exclusivamente documental; o CI pode recompilar o app existente.
+Os cenários Android citados pertencem à evidência
 registrada na release 1.0.0 e continuam identificados como tal.
 
 O arquivo ZIP documental reúne o manual e os exemplos. Para navegar também pelos links

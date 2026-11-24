@@ -4,6 +4,12 @@
 
 ## 2.1 Dois usos distintos dos dados
 
+O enquadramento proposto é de **pesquisa aplicada, com abordagem quantitativa e
+desenvolvimento de uma ferramenta de apoio**. A etapa de engenharia usa validação
+funcional e testes de software. A avaliação científica futura é comparativa e
+experimental, com ensaios pareados e condições controladas. Já a rotina de snapshots
+no telefone é observacional e exploratória; sozinha, não sustenta inferência causal.
+
 | Uso | O que se faz | Conclusão possível |
 |---|---|---|
 | Observação periódica | Snapshots a cada seis horas pelo app, sem reset | Descrever relatórios, padrões e falhas observados |
