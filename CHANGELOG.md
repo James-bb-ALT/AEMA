@@ -1,5 +1,19 @@
 # Changelog
 
+## Documentação 1.0.2 — 2026-11-24
+
+Melhoria incremental documental; app e pacote AEMA permanecem em 1.0.0.
+
+- Estudo exploratório sobre LLMs, modelos numéricos e previsão de consumo em seis horas.
+- Requisitos confirmados: inferência offline, meta de 6 GB, componentes e aplicativos,
+  treinamento maior no computador por transferência local; S25 Plus/One UI 9 como caso inicial declarado.
+- Comparação de sete candidatos, runtimes Android, pesos versus memória real e licenças.
+- Proposta de rótulos, janelas sem vazamento, personalização, recomendações e testes físicos.
+- Fontes primárias datadas, revisões de model cards e registro estruturado de 24 fontes.
+- Índices e objeto de estudo ligados à nova linha, sem declarar IA ou validação elétrica implementadas.
+
+Notas: [`docs/releases/docs-1.0.2.md`](docs/releases/docs-1.0.2.md).
+
 ## Documentação 1.0.1 — 2026-11-24
 
 Melhoria incremental da documentação; software AEMA 1.0.0 preservado.

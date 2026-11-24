@@ -1,0 +1,256 @@
+{
+  "registry_version": "1.0",
+  "study_date": "2026-11-24",
+  "review_type": "exploratory_not_systematic",
+  "experiments_reproduced": false,
+  "sources": [
+    {
+      "id": "F01",
+      "author_or_producer": "Android Open Source Project",
+      "title": "Measure power values",
+      "url": "https://source.android.com/docs/core/power/values",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "perfils de componentes e estimativas de carga"
+    },
+    {
+      "id": "F02",
+      "author_or_producer": "Android Developers",
+      "title": "BatteryManager API reference",
+      "url": "https://developer.android.com/reference/android/os/BatteryManager",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "propriedades, unidades, sinal e indisponibilidade"
+    },
+    {
+      "id": "F03",
+      "author_or_producer": "Oliner et al.",
+      "title": "Carat: Collaborative Energy Diagnosis for Mobile Devices",
+      "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2013/EECS-2013-17.html",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados"
+    },
+    {
+      "id": "F04",
+      "author_or_producer": "Zhang et al.",
+      "title": "Accurate Online Power Estimation and Automatic Battery Behavior Based Power Model Generation for Smartphones",
+      "url": "https://www.cs.columbia.edu/~coms6998-8/papers/powertutor_cases2010.pdf",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e introducao"
+    },
+    {
+      "id": "F05",
+      "author_or_producer": "Gruver et al.",
+      "title": "Large Language Models Are Zero-Shot Time Series Forecasters",
+      "url": "https://arxiv.org/abs/2310.07820v3",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados"
+    },
+    {
+      "id": "F06",
+      "author_or_producer": "Tan et al.",
+      "title": "Are Language Models Actually Useful for Time Series Forecasting?",
+      "url": "https://arxiv.org/abs/2406.16964v2",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados"
+    },
+    {
+      "id": "F07",
+      "author_or_producer": "Qiu et al.",
+      "title": "Rethinking the Role of LLMs in Time Series Forecasting",
+      "url": "https://arxiv.org/abs/2602.14744v2",
+      "source_type": "primary_research_preprint",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados; status editorial nao confirmado"
+    },
+    {
+      "id": "F08",
+      "author_or_producer": "Grinsztajn et al.",
+      "title": "Why do tree-based models still outperform deep learning on tabular data?",
+      "url": "https://arxiv.org/abs/2207.08815v1",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados"
+    },
+    {
+      "id": "F09",
+      "author_or_producer": "Hu et al.",
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "url": "https://arxiv.org/abs/2106.09685v2",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados"
+    },
+    {
+      "id": "F10",
+      "author_or_producer": "Dettmers et al.",
+      "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+      "url": "https://arxiv.org/abs/2305.14314v1",
+      "source_type": "primary_research",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados"
+    },
+    {
+      "id": "F11",
+      "author_or_producer": "Qwen",
+      "title": "Qwen3-0.6B",
+      "url": "https://huggingface.co/Qwen/Qwen3-0.6B",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "visao, modos, uso local, licenca e metadados da API",
+      "repository_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "declared_license": "apache-2.0",
+      "hub_gated": false,
+      "weights_downloaded": false
+    },
+    {
+      "id": "F12",
+      "author_or_producer": "Qwen",
+      "title": "Qwen3.5-0.8B",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "arquitetura, escopo, aviso, licenca e metadados da API",
+      "repository_revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "declared_license": "apache-2.0",
+      "hub_gated": false,
+      "weights_downloaded": false
+    },
+    {
+      "id": "F13",
+      "author_or_producer": "Google",
+      "title": "Gemma 3 270M IT",
+      "url": "https://huggingface.co/google/gemma-3-270m-it",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "card publico, licenca e metadados da API",
+      "repository_revision": "ac82b4e820549b854eebf28ce6dedaf9fdfa17b3",
+      "declared_license": "gemma",
+      "hub_gated": "manual",
+      "weights_downloaded": false
+    },
+    {
+      "id": "F14",
+      "author_or_producer": "Google",
+      "title": "FunctionGemma 270M IT",
+      "url": "https://huggingface.co/google/functiongemma-270m-it",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "escopo, aviso de dialogo, pagina oficial e metadados da API",
+      "repository_revision": "39eccb091651513a5dfb56892d3714c1b5b8276c",
+      "declared_license": "gemma",
+      "hub_gated": "manual",
+      "weights_downloaded": false,
+      "additional_url": "https://gemma.ai/models/functiongemma/"
+    },
+    {
+      "id": "F15",
+      "author_or_producer": "Google",
+      "title": "Gemma 3 1B IT",
+      "url": "https://huggingface.co/google/gemma-3-1b-it",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "card publico, licenca e metadados da API",
+      "repository_revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+      "declared_license": "gemma",
+      "hub_gated": "manual",
+      "weights_downloaded": false
+    },
+    {
+      "id": "F16",
+      "author_or_producer": "HuggingFaceTB",
+      "title": "SmolLM2-360M-Instruct",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "escopo, idioma, licenca e metadados da API",
+      "repository_revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+      "declared_license": "apache-2.0",
+      "hub_gated": false,
+      "weights_downloaded": false
+    },
+    {
+      "id": "F17",
+      "author_or_producer": "Amazon",
+      "title": "Chronos-Bolt Tiny",
+      "url": "https://huggingface.co/amazon/chronos-bolt-tiny",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "tamanho, tarefa, sucessor, licenca e metadados da API",
+      "repository_revision": "a0e552de83495b5c28c14c71c374f3e33280b340",
+      "declared_license": "apache-2.0",
+      "hub_gated": false,
+      "weights_downloaded": false
+    },
+    {
+      "id": "F18",
+      "author_or_producer": "ggml-org",
+      "title": "llama.cpp Android documentation",
+      "url": "https://github.com/ggml-org/llama.cpp/blob/0ce7f213b0749fa4dee4e87d8ae7bf63e621c1ad/docs/android.md",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "binding Android e GGUF; SHA obtido via gh API",
+      "repository_revision": "0ce7f213b0749fa4dee4e87d8ae7bf63e621c1ad"
+    },
+    {
+      "id": "F19",
+      "author_or_producer": "Google AI Edge",
+      "title": "LiteRT-LM Overview",
+      "url": "https://developers.google.com/edge/litert-lm/overview",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "visao e tabela; SHA do repositorio obtido separadamente via gh API",
+      "observed_code_revision": "efdf08dd30bc72b1c7f60d1fdd087e3e4c25e6b1",
+      "documentation_revision_match_verified": false
+    },
+    {
+      "id": "F20",
+      "author_or_producer": "scikit-learn",
+      "title": "TimeSeriesSplit",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "divisao temporal, gap e espacamento"
+    },
+    {
+      "id": "F21",
+      "author_or_producer": "River",
+      "title": "progressive_val_score",
+      "url": "https://riverml.xyz/latest/api/evaluate/progressive-val-score/",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "avaliacao antes de atualizacao e rotulo atrasado"
+    },
+    {
+      "id": "F22",
+      "author_or_producer": "River",
+      "title": "ADWIN",
+      "url": "https://riverml.xyz/latest/api/drift/ADWIN/",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "deteccao de deriva"
+    },
+    {
+      "id": "F23",
+      "author_or_producer": "Google DeepMind",
+      "title": "Gemma 4 model card",
+      "url": "https://gemma.ai/models/gemma-4/model-card/",
+      "source_type": "producer_model_card",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "triagem e parametros efetivos versus totais"
+    },
+    {
+      "id": "F24",
+      "author_or_producer": "Qwen",
+      "title": "Official model catalog",
+      "url": "https://huggingface.co/Qwen/models",
+      "source_type": "producer_catalog",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "triagem dinamica de familias e tarefas"
+    }
+  ]
+}

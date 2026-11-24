@@ -18,6 +18,11 @@ uma validação das estimativas do Android.
 
 ## 1.2 Objeto de estudo
 
+**Evolução registrada em 24/11/2026:** o autor definiu como objetivo final prever o
+consumo das próximas seis horas e recomendar mudanças offline. Os objetos e hipóteses
+específicos dessa nova linha estão no [estudo de IA](../estudos/01-LLMS-E-PREDICAO.md).
+A comparação elétrica abaixo permanece como estudo de sustentação e não foi executada.
+
 **Objeto primário proposto:** a diferença entre a estimativa de carga elétrica total
 do BatteryStats e a carga integrada por uma referência externa calibrada, em janelas
 temporais compatíveis e condições controladas de uso de um dispositivo Android.

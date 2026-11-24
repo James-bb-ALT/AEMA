@@ -1,6 +1,6 @@
 # Documentação do projeto AEMA
 
-**Edição da documentação: 1.0.1 · Software documentado: 1.0.0 · 24/11/2026.**
+**Edição da documentação: 1.0.2 · Software documentado: 1.0.0 · 24/11/2026.**
 
 O AEMA é uma infraestrutura de coleta, interpretação e análise offline de dados Android
 BatteryStats. O app usa Shizuku para criar capturas locais a cada seis horas; o computador
@@ -8,6 +8,12 @@ permite inspecionar, verificar, exportar e analisar os dados com o mesmo núcleo
 O estudo científico proposto investiga o erro das estimativas de carga total em mAh em
 relação a uma referência externa calibrada. A infraestrutura está implementada; o estudo
 com referência externa ainda não foi executado.
+
+O objetivo final de produto foi ampliado pelo autor para **previsão personalizada de
+consumo e recomendações**, com execução offline no telefone. O
+[caderno de estudos de IA](estudos/README.md) documenta essa linha, os requisitos
+confirmados, as alternativas e as fontes. A comparação elétrica continua como estudo
+de sustentação; previsão, treinamento e recomendações ainda são propostas.
 
 ## Roteiro de leitura
 
@@ -21,6 +27,7 @@ com referência externa ainda não foi executado.
 | [Operação, validação e limites](projeto/06-OPERACAO-VALIDACAO-E-LIMITES.md) | Como reproduzir o funcionamento, verificar resultados e reconhecer limitações? |
 | [Referências e glossário](projeto/07-REFERENCIAS-E-GLOSSARIO.md) | Quais fontes fundamentam o projeto e o que significam seus termos? |
 | [Catálogo completo](CATALOGO-COMPLETO.md) | Quais são os 145 campos catalogados, suas unidades e classes? |
+| [Estudos de IA e previsão](estudos/README.md) | Como investigar modelos leves, aprendizado pessoal e recomendações offline, e quais fontes sustentam as escolhas? |
 
 Para instalar e usar o app, consulte o [guia Android](android/README.md). Para compartilhar
 resultados, leia a [política de privacidade](study/PRIVACY.md). Para preparar a redação
@@ -44,10 +51,10 @@ registrada no pacote; esta documentação não atribui um nome por extenso sem d
 
 ## Versões e organização
 
-Esta atualização altera documentação e exemplos didáticos. App e pacote Python permanecem
+Esta atualização altera documentação e estudos. App e pacote Python permanecem
 em **1.0.0**, assim como seus contratos não alterados: captura 1.0, registro canônico 1.0,
-manifesto de dataset 2.0 e catálogo 1.1. A edição documental recebe **1.0.1**, uma melhoria
-incremental na classificação de versões adotada pelo projeto. Ver [notas documentais](releases/docs-1.0.1.md).
+manifesto de dataset 2.0 e catálogo 1.1. A edição documental recebe **1.0.2**, uma melhoria
+incremental na classificação de versões adotada pelo projeto. Ver [notas documentais](releases/docs-1.0.2.md).
 
 O [estado atual](STATUS.md) resume a entrega. Os arquivos em `audit/` e `refactoring/`
 preservam avaliações anteriores. O [plano de implementação](roadmap/IMPLEMENTATION-PLAN.md)

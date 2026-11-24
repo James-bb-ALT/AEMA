@@ -3,8 +3,13 @@
 Atualizado em 24 de novembro de 2026. Este arquivo descreve o estado atual; documentos
 de auditoria/refatoração e o baseline do roadmap são registros históricos.
 
-Documentação completa: [índice do manual](README.md), edição **1.0.1**, cobrindo objeto,
+Documentação completa: [índice do manual](README.md), edição **1.0.2**, cobrindo objeto,
 hipóteses propostas, métodos, arquitetura, código e contratos do software **1.0.0**.
+
+O [estudo de IA](estudos/README.md) registra a meta confirmada de previsão das próximas
+6 h, componentes/aplicativos, inferência offline e aparelhos com 6 GB ou mais, com
+treinamento maior no computador. Inclui fontes e proposta de arquitetura híbrida.
+Modelos de IA, deltas/janelas, aprendizado pessoal e recomendações **não estão implementados**.
 
 ## Implementado
 
