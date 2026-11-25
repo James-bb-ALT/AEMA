@@ -1,32 +1,32 @@
-# AEMA 2.0.0
+# AEMA 3.0.0
 
 Coleta e análise offline de exportações Android BatteryStats. O app Android usa Shizuku
 para salvar um novo ZIP a cada seis horas. O computador e o app executam os mesmos
 algoritmos Python de parsing, normalização, catálogo, diagnóstico e exportação canônica.
 
-O app também oferece **leitura local por LLM e debug**, com Qwen3/llama.cpp em CPU,
-cancelamento e relatório exportável. Escolha o APK com modelo incluído para uso offline
-ou importe um Qwen3 GGUF no APK menor. A leitura descreve uma captura acumulada;
-previsão treinada das próximas seis horas e aprendizado pessoal continuam pendentes.
-[Uso, arquitetura, modelos e debug](docs/android/LLM-E-DEBUG.md).
+O app oferece **previsão leve experimental das próximas 6 horas**, com Ridge nativo,
+ranking de componentes/UIDs, sugestões locais, demonstração e debug. O treino acontece
+no computador, com transferência local de JSON e previsão offline no telefone.
+[Guia de previsão leve](docs/android/PREVISAO-LEVE.md). A leitura Qwen permanece opcional;
+o APK padrão desta release não inclui os pesos do LLM. O parser Python continua embutido.
 
 Os valores em mAh são estimativas/atribuições do Android. Não são medições diretas de
 corrente, potência ou energia. A validação com referência elétrica externa continua pendente.
 
 ## Documentação do projeto
 
-O [manual completo](docs/README.md), edição documental **2.0.0**, descreve objeto de estudo,
+O [manual completo](docs/README.md), edição documental **3.0.0**, descreve objeto de estudo,
 objetivos, hipóteses propostas, metodologia, arquitetura, tecnologias, código, algoritmos,
-dados, operação e limites do software **2.0.0**.
+dados, operação e limites do software **3.0.0**.
 Comece por [Objeto e hipóteses](docs/projeto/01-OBJETO-E-HIPOTESES.md) para o contexto
 científico ou por [Código e algoritmos](docs/projeto/04-CODIGO-E-ALGORITMOS.md) para manutenção.
 
 O [estudo de IA e previsão de bateria](docs/estudos/README.md) registra a evolução pretendida:
 prever as próximas seis horas, analisar componentes e aplicativos e sugerir mudanças,
 com inferência offline em aparelhos a partir de 6 GB de RAM. Inclui modelos pequenos,
-treinamento pessoal, metodologia de avaliação e fontes. É pesquisa e proposta;
-a integração de leitura chegou na versão 2.0.0; os experimentos de previsão e treinamento
-permanecem propostos. Consulte também os [avisos de terceiros](THIRD_PARTY_NOTICES.md).
+treinamento pessoal, metodologia de avaliação e fontes. Ridge, treino e simulação estão
+implementados; precisão pessoal, economia e generalização entre aparelhos continuam
+pendentes. Consulte também os [avisos de terceiros](THIRD_PARTY_NOTICES.md).
 
 ## App Android
 

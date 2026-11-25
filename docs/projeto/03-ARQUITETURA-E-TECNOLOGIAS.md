@@ -1,5 +1,19 @@
 # 3. Arquitetura e tecnologias
 
+## Previsão numérica adicionada em 3.0.0
+
+O parser Python compartilhado prepara oito janelas válidas nos últimos 14 dias.
+`ForecastRunner` recebe os atributos e calcula Ridge por `RidgeEngine`, em Java,
+sem iniciar o LLM. `ForecastModel` valida contrato/dimensões/números e `ForecastStore`
+importa JSON limitado por escrita atômica. `ForecastActivity` separa demonstração e
+previsão pessoal. Após salvar uma coleta, `CaptureService` tenta atualizar a previsão;
+modelo/histórico insuficiente produz abstenção. O treinamento NumPy roda no computador.
+
+Cada previsão pessoal bem-sucedida preserva relatório e modelo em ZIP prospectivo,
+copiado para a pasta SAF. A inferência é offline; não existe reajuste automático dos
+pesos no telefone. Python/pandas e o runtime LLM opcional continuam no APK.
+Detalhes: [guia de previsão](../android/PREVISAO-LEVE.md).
+
 [Índice](../README.md) · [Anterior](02-METODOLOGIA.md) · [Próximo](04-CODIGO-E-ALGORITMOS.md)
 
 ## 3.1 Visão do sistema

@@ -46,8 +46,10 @@ final class FolderExport {
         }
     }
     static void all(Context context) throws IOException {
-        File[] files = new File(context.getFilesDir(), "captures").listFiles(
+        for (String directoryName : new String[]{"captures", "forecasts"}) {
+        File[] files = new File(context.getFilesDir(), directoryName).listFiles(
             (directory, name) -> name.endsWith(".zip"));
         if (files != null) for (File file : files) copy(context, file);
+        }
     }
 }

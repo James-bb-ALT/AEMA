@@ -1,11 +1,15 @@
 # Estudos de IA para previsão de bateria
 
-**Pesquisa consultada em 24/11/2026 · Pesquisa histórica 1.0.2 · Software atual 2.0.1.**
+**Pesquisa consultada em 24/11/2026 · Pesquisa histórica 1.0.2 · Software atual 3.0.0.**
+
+**Etapa atual 3.0.0 (25/11/2026):** [Ridge no app e simulação](08-IMPLEMENTACAO-E-SIMULACAO-RIDGE.md)
+implementam previsão offline, treino no computador e exportação. Os estudos abaixo
+preservam suas datas e propostas; previsão pessoal e economia ainda exigem dados reais.
 
 **Implementação posterior:** as releases 2.0.0 e 2.0.1 acrescentam
 [leitura local por LLM e debug](../android/LLM-E-DEBUG.md), usando pesos Qwen3 sem ajuste
-pessoal. Este caderno preserva o recorte original da pesquisa. Previsão de seis horas,
-treinamento pessoal e experimentos de economia continuam como trabalho proposto.
+pessoal. Este caderno preserva o recorte original da pesquisa. A implementação atual e seus limites
+estão registrados no estudo 8. Experimentos de economia permanecem propostos.
 
 **Direção atual (documentação 2.0.2):** o autor priorizou redução de peso. O
 [novo estudo de modelos ultraleves](06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) recomenda
@@ -46,6 +50,7 @@ fidelidade aos dados, memória, tempo e energia no aparelho de 6 GB.
 | [2. Modelos e execução local](02-MODELOS-E-EXECUCAO-LOCAL.md) | Sete candidatos, triagem de alternativas, memória, licença e runtimes Android. |
 | [3. Dados, treinamento e validação](03-DADOS-TREINAMENTO-E-VALIDACAO.md) | Rótulos, deltas, prevenção de vazamento, personalização, hipóteses e critérios experimentais. |
 | [4. Arquitetura e plano experimental](04-ARQUITETURA-E-PLANO-EXPERIMENTAL.md) | Fluxos offline, artefatos, recomendações e etapas de implementação propostas. |
+| [8. Ridge no app e simulação](08-IMPLEMENTACAO-E-SIMULACAO-RIDGE.md) | Integração host/Android, testes e limites. |
 | [Fontes e método de pesquisa](FONTES.md) | Fontes primárias, versões consultadas, alcance da leitura e limites da revisão. |
 | [5. Simulação e viabilidade técnica](05-SIMULACAO-E-VIABILIDADE-LLM.md) | Testes sintéticos, inferência Android, protótipo LoRA e limites de generalização. |
 | [6. Alternativas ultraleves](06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) | Indra OCR, EmbeddingGemma 2, MLP/Ridge, pesos calculados, runtime e protocolo de comparação. |

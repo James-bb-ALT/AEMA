@@ -1,5 +1,19 @@
 # 5. Dados, arquivos e contratos
 
+## Contratos novos em 3.0.0
+
+Modelo `aema_ridge_6h/1.0`, resultado `aema_forecast_result/1.0`, horizonte seis horas.
+O modelo exige vínculo por hash de instalação/build, marcação sintética booleana,
+quatro componentes fixos e 1–12 UIDs, normalizadores e pesos finitos. O atributo
+`valid_lag1_lag4_mean8_calendar_age_utc_v1` tem `3 × saídas + 5` entradas.
+O resultado identifica período, eixos separados, escopo do ranking, hash do modelo e
+de cada captura usada; inclui abstenção explícita quando faltam dados elegíveis.
+
+O manifesto de captura 1.0 recebe `forecast_boot_count` aditivo. Ausência mantém
+compatibilidade dos parsers existentes, mas impede usar o par na previsão. Dataset,
+registro canônico e catálogo não mudam. Contrato completo e privacidade dos novos
+arquivos: [previsão leve](../android/PREVISAO-LEVE.md).
+
 [Índice](../README.md) · [Anterior](04-CODIGO-E-ALGORITMOS.md) · [Próximo](06-OPERACAO-VALIDACAO-E-LIMITES.md)
 
 ## 5.1 Grandezas e interpretação

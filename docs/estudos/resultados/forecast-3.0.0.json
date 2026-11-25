@@ -1,0 +1,46 @@
+{
+  "synthetic": true,
+  "capture_count": 96,
+  "training": {
+    "examples": 87,
+    "rejected_captures": 0,
+    "train": 55,
+    "validation": 16,
+    "test": 16,
+    "alpha": 100,
+    "validation_mae": 17.54882030760495,
+    "test_mae": 22.164719135190996,
+    "fourth_valid_window_test_mae": 23.205188385416733,
+    "scientific_validation": false,
+    "online_learning": false,
+    "target_semantics": "future_BatteryStats_estimate_not_physical_ground_truth"
+  },
+  "native_cases": 16,
+  "model_bytes": 6360,
+  "weights_fp32_bytes": 576,
+  "scientific_validation": false,
+  "deployed_personal_model": false,
+  "android": {
+    "synthetic": true,
+    "cases": 16,
+    "max_abs_error_mah": 5.684341886080802e-14,
+    "wall_ms": 601.9428,
+    "app_version": "3.0.0",
+    "engine": "native_ridge",
+    "warm_repetitions": 1000,
+    "warm_6_output_p50_ms": 0.0587,
+    "warm_6_output_p95_ms": 1.406,
+    "timing_scope": "emulator_warm_one_fixed_feature_vector_excludes_preparation"
+  },
+  "verification": {
+    "python_tests": 248,
+    "coverage_percent": 92.94,
+    "jvm_tests": 3,
+    "instrumented_tests": 5,
+    "lint_errors": 0,
+    "lint_warnings": 35,
+    "emulator": "Android 15 API 35 x86_64, configured 6 GiB RAM",
+    "physical_validation": false
+  },
+  "release_apk_bytes": 98442636
+}

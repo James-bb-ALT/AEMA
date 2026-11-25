@@ -108,8 +108,9 @@ public final class MainActivity extends Activity {
                 message("Coleta iniciada. Aguarde o novo ZIP.");
             }
         });
-        button(body, "Copiar todos os ZIPs para a pasta", () -> copyAll());
-        button(body, "Leitura por IA e debug", () -> startActivity(new Intent(this, AnalysisActivity.class)));
+        button(body, "Copiar ZIPs e previsões para a pasta", () -> copyAll());
+        button(body, "Previsão leve (6 horas)", () -> startActivity(new Intent(this, ForecastActivity.class)));
+        button(body, "Leitura por LLM e debug (opcional)", () -> startActivity(new Intent(this, AnalysisActivity.class)));
         text(body, "Sobre os dados", 19, true);
         text(body, "Os ZIPs contêm pacotes, UIDs e outros dados privados. Escolha uma pasta local, " +
             "como Documentos/AEMA. Provedores de nuvem podem sincronizar a pasta escolhida. " +

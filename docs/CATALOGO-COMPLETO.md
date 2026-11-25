@@ -1,6 +1,6 @@
 # Catálogo completo dos campos
 
-Inventário gerado do catálogo 1.2 do software AEMA 2.0.1 em 24/11/2026.
+Inventário gerado do catálogo 1.2 do software AEMA 3.0.0 em 25/11/2026.
 
 [Índice do manual](README.md) · [Contratos de dados](projeto/05-DADOS-E-CONTRATOS.md)
 

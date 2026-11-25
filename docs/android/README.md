@@ -1,6 +1,6 @@
-# AEMA Android 2.0.1
+# AEMA Android 3.0.0
 
-Para a nova leitura local por IA, modelos e diagnóstico, veja [LLM e debug](LLM-E-DEBUG.md).
+Previsão padrão: [Ridge leve offline](PREVISAO-LEVE.md). Leitura opcional: [LLM e debug](LLM-E-DEBUG.md).
 
 ## Operação no telefone
 
@@ -30,13 +30,16 @@ descreve o processamento. Nunca trate uma coleta incompleta como dataset válido
 Os ZIPs são mantidos em `files/captures/`, sob o armazenamento privado do app. O app
 copia cada ZIP finalizado para a pasta SAF escolhida, primeiro com nome temporário e
 depois renomeando. Falha de permissão/provedor mantém a cópia privada e mostra aviso.
-**Copiar todos os ZIPs** permite repetir a transferência. Sem espaço, os dados já salvos
+**Copiar ZIPs e previsões para a pasta** permite repetir a transferência. Sem espaço, os dados já salvos
 não são apagados automaticamente; o erro é exibido. Não existe política de retenção
 automática nesta versão. Transfira os dados regularmente e acompanhe o armazenamento.
 
 A desinstalação apaga os dados privados. ZIPs já copiados para a pasta escolhida continuam
 lá. Pastas de nuvem selecionadas pelo usuário podem sincronizar independentemente do app.
 Android Backup e transferência automática de dados do app estão desativados.
+
+Previsões pessoais bem-sucedidas também geram ZIPs em `files/forecasts/`, com relatório
+e modelo usado. São copiados para a mesma pasta SAF. Veja o contrato no guia de previsão.
 
 ## Agendamento
 

@@ -1,5 +1,16 @@
 # 6. Operação, validação, manutenção e limites
 
+## Operação e evidências da etapa 3.0.0
+
+A previsão Ridge experimental, treino no computador e demonstração estão implementados.
+[Guia operacional](../android/PREVISAO-LEVE.md) e [simulação documentada](../estudos/08-IMPLEMENTACAO-E-SIMULACAO-RIDGE.md)
+registram os comandos, exclusões, testes e limites. O modelo pessoal exige novos dados
+válidos; o exemplo sintético não é instalado como preditor pessoal. Aprendizado automático
+no telefone, ensaios elétricos, economia e generalização permanecem pendentes.
+
+Nova etapa de release: app/pacote/documentação 3.0.0. Dependências e contratos existentes
+não alterados são preservados. A classificação do proprietário orienta esse incremento.
+
 [Índice](../README.md) · [Anterior](05-DADOS-E-CONTRATOS.md) · [Próximo](07-REFERENCIAS-E-GLOSSARIO.md)
 
 ## 6.1 Preparar o host

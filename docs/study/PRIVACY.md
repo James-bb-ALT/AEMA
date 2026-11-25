@@ -1,4 +1,13 @@
-# Privacidade — AEMA 2.0.1
+# Privacidade — AEMA 3.0.0
+
+## Previsões e modelos pessoais
+
+O JSON de treino e os relatórios contêm identificadores de UIDs, vínculo de instalação/build
+e estimativas de uso. ZIPs prospectivos em `files/forecasts/` incluem modelo e relatório,
+são copiados para a pasta SAF e preservados sem retenção automática. Trate-os como
+dados privados. A demonstração é separada e marcada sintética; o debug registra motivos
+e tempos, sem vetor de atributos. Treino/reajustes acontecem no computador por transferência
+local. O app não possui permissão de internet. Provedores SAF podem sincronizar por conta própria.
 
 ## Leitura local por LLM e debug
 

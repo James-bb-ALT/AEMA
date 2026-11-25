@@ -1,7 +1,22 @@
 # Experimentos AEMA
 
 Código de pesquisa executado no computador. Os modelos sintéticos desta pasta não
-estão instalados no app e não produzem previsões pessoais validadas.
+produzem previsões pessoais validadas. A versão 3.0.0 inclui uma demonstração Ridge
+explicitamente sintética no app, sem instalar um modelo pessoal.
+
+## Integração Ridge 3.0.0
+
+```powershell
+python -m experiments.forecast_simulation --output dist/forecast-3.0.0
+python -m pytest tests/unit/test_forecast.py
+```
+
+São gerados 96 ZIPs por parser real, modelo host e 16 casos para paridade Java.
+`forecast-demo.json` é asset da demonstração; `forecast-native-cases.json` alimenta
+os testes Android. Não substituir um modelo pessoal por esses pesos. Reprodução,
+resultados e limites: [estudo 8](../docs/estudos/08-IMPLEMENTACAO-E-SIMULACAO-RIDGE.md).
+Para dados pessoais, use `python -m aema.forecast_training` conforme o
+[guia operacional](../docs/android/PREVISAO-LEVE.md).
 
 ## Comparação ultraleve 1.0.0
 

@@ -1,31 +1,19 @@
-# Estado atual — AEMA 2.0.1
+# Estado atual — AEMA 3.0.0
 
-Atualizado em 24 de novembro de 2026. Este arquivo descreve o estado atual; documentos
-de auditoria/refatoração e o baseline do roadmap são registros históricos.
+Atualizado em 25 de novembro de 2026. App, pacote e documentação: **3.0.0**.
 
-Documentação completa: [índice do manual](README.md), edição **2.0.3**, cobrindo objeto,
-hipóteses propostas, métodos, arquitetura, código e contratos do software **2.0.1**.
+A [previsão leve](android/PREVISAO-LEVE.md) usa Ridge nativo offline para quatro
+componentes e 1–12 UIDs. Inclui treino no computador, importação de JSON, verificação
+de janelas, atualização após coleta, recomendações locais, arquivo prospectivo e debug.
+O [estudo de implementação](estudos/08-IMPLEMENTACAO-E-SIMULACAO-RIDGE.md) registra
+simulação sintética e paridade no emulador. Não há precisão pessoal validada.
 
-O [estudo de alternativas ultraleves](estudos/06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md)
-prioriza Ridge/MLP compacta e redução do runtime, conforme nova preferência do autor.
-É proposta estudada; o app publicado continua usando Qwen, sem migração nesta etapa.
+O [experimento Ridge/MLP](estudos/07-COMPARACAO-RIDGE-MLP.md) fundamentou a escolha:
+Ridge teve menor erro de consumo nos regimes sintéticos estudados. A demonstração
+não instala modelo pessoal. O treino exige histórico real novo e transferência local.
 
-O [experimento ultraleve 1.0.0](estudos/07-COMPARACAO-RIDGE-MLP.md) já comparou Ridge
-e MLP em dois regimes sintéticos pareados, com cinco sementes e exportação portátil.
-Ridge teve menor erro de consumo; a MLP não trouxe ganho neste teste. Ranking dos
-maiores consumidores apresentou vencedores diferentes. O resultado não é treino
-pessoal e os pesos exportados não foram instalados no app.
-
-O [estudo de IA](estudos/README.md) registra a meta confirmada de previsão das próximas
-6 h, componentes/aplicativos, inferência offline e aparelhos com 6 GB ou mais, com
-treinamento maior no computador. Inclui fontes e proposta de arquitetura híbrida.
-A [leitura de snapshot por LLM e o debug](android/LLM-E-DEBUG.md) estão implementados em
-2.0.1. Deltas/janelas de treino, previsão futura, adaptação pessoal e ensaios de economia
-**não estão implementados**.
-
-A nova [simulação e avaliação de viabilidade](estudos/05-SIMULACAO-E-VIABILIDADE-LLM.md)
-exercita parsing/importação, predição numérica sintética e seleção nativa pelo Qwen real.
-Ela não substitui rótulos de consumo futuro observados em telefone físico.
+A [leitura Qwen](android/LLM-E-DEBUG.md) continua opcional; o APK padrão não inclui
+seus pesos. Python/pandas e as bibliotecas existentes continuam no aplicativo.
 
 ## Implementado
 
@@ -59,5 +47,5 @@ R-001/R-004 e R-302–305/R-402/R-501–502 mantêm os bloqueios científicos do
 R-104 tem implementação técnica de pseudonimização; aprovação de política/consentimento
 e análise contextual de reidentificação pertencem ao responsável pelo estudo.
 
-Os dumps são acumulados conforme os resets internos do Android. Não há cálculo automático
-de deltas entre snapshots nem reset artificial para transformar capturas em janelas isoladas.
+Os dumps são acumulados conforme os resets internos do Android. A previsão calcula deltas somente entre pares elegíveis; o app nunca reseta
+os contadores nem reconstrói intervalos perdidos. Atribuição BatteryStats não é medida elétrica.

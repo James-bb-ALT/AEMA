@@ -45,7 +45,14 @@ public final class AnalysisDebug {
             .put("low_memory", memory.lowMemory).put("runtime", "llama.cpp")
             .put("runtime_revision", "0ce7f213b0749fa4dee4e87d8ae7bf63e621c1ad")
             .put("pss_note", "instantaneous samples, not peak memory")
-            .put("forecast_status", "not_trained");
+            .put("forecast_status", "model_required");
+        File forecast = new File(context.getFilesDir(), "forecast-result.json");
+        if (forecast.isFile() && forecast.length() < 128 * 1024) {
+            JSONObject saved = new JSONObject(new String(Files.readAllBytes(forecast.toPath()), StandardCharsets.UTF_8));
+            report.put("forecast_status", saved.optString("status"))
+                .put("forecast_reason", saved.optString("reason"));
+        }
+        report.put("forecast_engine", "native_ridge/1.0");
         ModelStore store = new ModelStore(context);
         if (store.ready()) report.put("model", store.info());
         var state = Scheduler.state(context);

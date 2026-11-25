@@ -84,6 +84,8 @@ public final class CaptureService extends Service {
             metadata.put("transport", "shizuku_user_service");
             metadata.put("commands", commands);
             metadata.put("battery_state_file", "battery_state.txt");
+            try { metadata.put("forecast_boot_count", android.provider.Settings.Global.getString(getContentResolver(), "boot_count")); }
+            catch (SecurityException unavailable) { metadata.put("forecast_boot_count", JSONObject.NULL); }
             try {
                 CountDownLatch received = new CountDownLatch(1);
                 Shizuku.OnBinderReceivedListener listener = received::countDown;
@@ -154,6 +156,9 @@ public final class CaptureService extends Service {
                 new JSONObject().put("command_count", commands.length())
                     .put("collection_status", metadata.optString("status"))
                     .put("parse_status", published.optString("parse_status")));
+            // Run after durable ZIP publication. Absence of a model/history produces an abstention report.
+            try { ForecastRunner.personal(this); }
+            catch (Exception error) { AnalysisDebug.event(this, "forecast", "SAVE_FAILED", null); }
         } catch (Exception error) {
             warning = "Falha ao salvar: " + error.getMessage();
             Scheduler.state(this).edit().putString("last_error", warning).apply();

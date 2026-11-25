@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.0.0 — 2026-11-25
+
+Nova etapa: previsão Ridge offline, treino no computador e integração Android.
+
+- Motor Java limitado, JSON FP32 validado, importação atômica e vínculo instalação/build.
+- Oito janelas válidas de seis horas em até 14 dias; exclusões por boot/reset/tempo/carga.
+- Previsão após coleta, rankings por eixo, sugestões locais, ZIP prospectivo e debug.
+- Demonstração sintética separada; APK padrão sem pesos Qwen, leitura LLM opcional.
+- Simulação com 96 ZIPs pelo parser real; testes host, JVM e emulador documentados.
+- Sem validação física, economia comprovada ou atualização automática de pesos.
+
+Notas: [`docs/releases/3.0.0.md`](docs/releases/3.0.0.md).
+
 ## Documentação 2.0.3 / experimento ultraleve 1.0.0 — 2026-11-24
 
 Nova etapa do componente experimental; app/pacote permanecem 2.0.1. Melhoria incremental

@@ -1,10 +1,14 @@
-# Leitura local por LLM e debug — AEMA 2.0.1
+# Leitura local por LLM e debug — AEMA 3.0.0
+
+A leitura de snapshot continua opcional. O APK padrão 3.0.0 não inclui pesos Qwen;
+importe um GGUF compatível para este fluxo. Para previsão numérica sem LLM, use
+[Previsão leve](PREVISAO-LEVE.md).
 
 ## Usar no telefone
 
 1. Instale o APK **com modelo** e faça uma coleta completa. As capturas anteriores do
    app também podem ser usadas se tiverem parsing válido e integridade preservada.
-2. Abra **Leitura por IA e debug** e toque em **Preparar modelo incluído** uma vez.
+2. Abra **Leitura por LLM e debug (opcional)** e toque em **Preparar modelo incluído** uma vez.
    O arquivo é copiado do APK para o armazenamento privado e seu SHA-256 é verificado.
 3. Toque em **Ler captura mais recente**. Mantenha a tela aberta; **Cancelar** interrompe
    a operação. A coleta periódica continua com a cadência existente de seis horas.

@@ -1,5 +1,21 @@
 # 4. Código implementado e algoritmos
 
+## Previsão Ridge adicionada em 3.0.0
+
+`forecast.read_snapshot` reutiliza a verificação do dataset e exige metadados de boot,
+reset, UTC/monotônico e estado de bateria. `delta` recusa pares incompatíveis e normaliza
+deltas elegíveis para seis horas. `features` usa última/quarta janela válida, média de
+oito, calendário UTC e idades explícitas; nunca usa o rótulo futuro. Janelas inválidas
+não são atravessadas. `prepare_forecast` devolve atributos rastreáveis ou abstenção.
+
+`forecast_training.train` ajusta Ridge NumPy com normalização somente do treino,
+escolha de alpha por validação cronológica e teste final reservado. O JSON FP32 é
+avaliado no Android por produto matricial Java limitado e validado. Ranking e sugestões
+derivam apenas dos alvos previstos, com componentes e UIDs separados. Não é um modelo
+elétrico físico, nem identifica causalidade de uma mudança de configuração.
+
+Contratos, arquivos, comandos e caminhos: [previsão leve](../android/PREVISAO-LEVE.md).
+
 [Índice](../README.md) · [Anterior](03-ARQUITETURA-E-TECNOLOGIAS.md) · [Próximo](05-DADOS-E-CONTRATOS.md)
 
 Os caminhos abaixo são a referência de implementação. Esta documentação explica funções

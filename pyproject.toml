@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aema-parser"
-version = "2.0.1"
-description = "Offline Android BatteryStats collection, verified parsing and grounded local LLM readings"
+version = "3.0.0"
+description = "Offline Android battery collection, verified parsing and experimental native Ridge forecasts"
 requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.2,<3",
