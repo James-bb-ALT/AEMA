@@ -7,6 +7,33 @@ publicação. Páginas sem versão fixa podem mudar; revisões disponíveis fora
 
 ## Método e alcance
 
+### Complemento 2.0.2: alternativas ultraleves
+
+O [estudo 6](06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) acrescenta F25–F34 ao registro
+estruturado, com consulta em 24/11/2026. Termos adicionais: `Indra OCR`,
+`EmbeddingGemma 2`, `TSMixer`, `LTSF-Linear`, `SGDRegressor partial_fit`, `LiteRT
+integer quantization` e `ONNX Runtime mobile custom build`. Exa retornou novamente
+`Unknown MCP server 'exa'`; foi usada busca web disponível e leitura de fontes primárias.
+
+| ID | Fonte e alcance |
+|---|---|
+| F25 | [Datalab: anúncio Indra](https://www.datalab.to/blog/indra-ocr) — tarefa, tamanho anunciado e condições do benchmark histórico. |
+| F26 | [Indra README](https://github.com/datalab-to/indra) — pipeline, limites, modelos auxiliares e diferença de versões; não auditoria integral do código. |
+| F27 | [Google: guia EmbeddingGemma 2](https://developers.googleblog.com/embeddinggemma-2-the-developer-guide/) — variantes, parâmetros e vetores. |
+| F28 | [Visão geral EmbeddingGemma](https://ai.google.dev/gemma/docs/embeddinggemma) — finalidade e famílias. |
+| F29 | [LTSF-Linear](https://arxiv.org/abs/2205.13504) — resumo/metadados; resultados não reproduzidos. |
+| F30 | [Google Research: TSMixer](https://research.google/blog/tsmixer-an-all-mlp-architecture-for-time-series-forecasting/) — descrição arquitetural e escopo de benchmarks. |
+| F31 | [SGDRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html) — método incremental; não proposta de dependência Android. |
+| F32 | [Google AI Edge: quantização](https://developers.google.com/edge/litert/conversion/tensorflow/quantization/post_training_integer_quant) — int8, calibração e aviso de migração. |
+| F33 | [ONNX Runtime mobile](https://onnxruntime.ai/docs/tutorials/mobile/) — custo global e exemplos versionados. |
+| F34 | [ONNX Runtime custom build](https://onnxruntime.ai/docs/build/custom.html) — redução de operadores. |
+
+Os cálculos de pesos MLP e a inspeção ZIP dos APKs são evidências locais desta edição;
+não são benchmarks dos autores nem inferência executada com uma rede nova. Nenhum
+peso foi baixado. Não houve importação de credenciais ou instalação de canal.
+
+### Método original preservado
+
 Revisão exploratória dirigida ao problema do AEMA, não revisão sistemática exaustiva.
 Foram buscadas fontes primárias de modelagem de bateria, previsão temporal, adaptação
 de modelos e inferência Android. Termos incluíram `small language models on device`,

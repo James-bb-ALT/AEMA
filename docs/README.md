@@ -1,6 +1,6 @@
 # Documentação do projeto AEMA
 
-**Edição da documentação: 2.0.1 · Software documentado: 2.0.1 · 24/11/2026.**
+**Edição da documentação: 2.0.2 · Software documentado: 2.0.1 · 24/11/2026.**
 
 O AEMA é uma infraestrutura de coleta, interpretação e análise offline de dados Android
 BatteryStats. O app usa Shizuku para criar capturas locais a cada seis horas; o computador
@@ -33,6 +33,7 @@ Ver [guia da IA e debug](android/LLM-E-DEBUG.md).
 | [Estudos de IA e previsão](estudos/README.md) | Como investigar modelos leves, aprendizado pessoal e recomendações offline, e quais fontes sustentam as escolhas? |
 | [Leitura LLM e debug implementados](android/LLM-E-DEBUG.md) | Como instalar o modelo, analisar, cancelar, exportar e reproduzir a integração 2.0.1? |
 | [Simulação e viabilidade](estudos/05-SIMULACAO-E-VIABILIDADE-LLM.md) | O que passou nos testes, o que aprendeu o LLM sintético e o que falta validar com dados reais? |
+| [Alternativas ultraleves](estudos/06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) | Como substituir o custo do LLM por regressão ou rede pequena, e qual o papel de Indra/EmbeddingGemma? |
 
 Para instalar e usar o app, consulte o [guia Android](android/README.md). Para compartilhar
 resultados, leia a [política de privacidade](study/PRIVACY.md). Para preparar a redação
@@ -57,11 +58,15 @@ registrada no pacote; esta documentação não atribui um nome por extenso sem d
 
 ## Versões e organização
 
-Esta etapa acrescenta funcionalidade. App, pacote Python e documentação recebem
-**2.0.1**, conforme a classificação do projeto. Contratos não alterados permanecem:
+A etapa funcional publicada mantém app e pacote Python em **2.0.1**. A documentação
+atual é **2.0.2**, conforme a classificação do projeto. Contratos não alterados permanecem:
 captura 1.0, registro canônico 1.0 e manifesto de dataset 2.0. O catálogo avança para
 1.2 com GPU; datasets 1.1 continuam importáveis quando não contêm as novas métricas.
 Ver [notas da release](releases/2.0.1.md); edições documentais anteriores permanecem históricas.
+
+A edição documental **2.0.2** acrescenta estudo de alternativas ultraleves e inspeção
+do tamanho dos APKs. App e pacote permanecem 2.0.1; ver
+[notas documentais](releases/docs-2.0.2.md).
 
 O [estado atual](STATUS.md) resume a entrega. Os arquivos em `audit/` e `refactoring/`
 preservam avaliações anteriores. O [plano de implementação](roadmap/IMPLEMENTATION-PLAN.md)

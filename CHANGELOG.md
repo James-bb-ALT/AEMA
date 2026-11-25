@@ -1,5 +1,17 @@
 # Changelog
 
+## Documentação 2.0.2 — 2026-11-24
+
+Melhoria incremental documental; app e pacote permanecem 2.0.1.
+
+- Pesquisa de Indra OCR/EmbeddingGemma 2 e adequação à previsão numérica de bateria.
+- Comparação Ridge, árvores, MLP, CNN/GRU e alternativas temporais, com fontes primárias.
+- Cálculos explícitos de pesos de redes pequenas e inspeção do armazenamento dos APKs 2.0.1.
+- Proposta de metas de recursos, dados necessários, aprendizado incremental e avaliação temporal.
+- Nenhuma substituição do modelo, treino novo ou alegação de precisão real nesta etapa.
+
+Notas: [`docs/releases/docs-2.0.2.md`](docs/releases/docs-2.0.2.md).
+
 ## 2.0.1 — 2026-11-24
 
 Correção incremental na seleção de evidências da leitura local.

@@ -7,6 +7,11 @@
 pessoal. Este caderno preserva o recorte original da pesquisa. Previsão de seis horas,
 treinamento pessoal e experimentos de economia continuam como trabalho proposto.
 
+**Direção atual (documentação 2.0.2):** o autor priorizou redução de peso. O
+[novo estudo de modelos ultraleves](06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) recomenda
+comparar Ridge e MLP compacta com dados numéricos, sugestões por regras e avaliação do
+runtime. A escolha exploratória anterior de um LLM não é mais a recomendação padrão.
+
 O objetivo final informado pelo autor é um assistente pessoal que preveja o consumo
 das próximas **seis horas**, identifique componentes e aplicativos mais consumidores
 e sugira mudanças. As previsões devem funcionar **no telefone, sem internet**, mirando
@@ -43,6 +48,7 @@ fidelidade aos dados, memória, tempo e energia no aparelho de 6 GB.
 | [4. Arquitetura e plano experimental](04-ARQUITETURA-E-PLANO-EXPERIMENTAL.md) | Fluxos offline, artefatos, recomendações e etapas de implementação propostas. |
 | [Fontes e método de pesquisa](FONTES.md) | Fontes primárias, versões consultadas, alcance da leitura e limites da revisão. |
 | [5. Simulação e viabilidade técnica](05-SIMULACAO-E-VIABILIDADE-LLM.md) | Testes sintéticos, inferência Android, protótipo LoRA e limites de generalização. |
+| [6. Alternativas ultraleves](06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) | Indra OCR, EmbeddingGemma 2, MLP/Ridge, pesos calculados, runtime e protocolo de comparação. |
 
 O [registro estruturado das fontes](fontes.json) facilita atualizações futuras.
 As referências da infraestrutura e dos estudos elétricos anteriores continuam no

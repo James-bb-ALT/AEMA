@@ -1,5 +1,5 @@
 {
-  "registry_version": "1.0",
+  "registry_version": "1.1",
   "study_date": "2026-11-24",
   "review_type": "exploratory_not_systematic",
   "experiments_reproduced": false,
@@ -251,6 +251,97 @@
       "source_type": "producer_catalog",
       "accessed_on": "2026-11-24",
       "reading_scope": "triagem dinamica de familias e tarefas"
+    },
+    {
+      "id": "F25",
+      "author_or_producer": "Datalab / Vik Paruchuri",
+      "title": "Indra OCR announcement",
+      "url": "https://www.datalab.to/blog/indra-ocr",
+      "source_type": "producer_technical_blog",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "escopo OCR e condições do benchmark histórico de throughput"
+    },
+    {
+      "id": "F26",
+      "author_or_producer": "Datalab",
+      "title": "Indra OCR repository README",
+      "url": "https://github.com/datalab-to/indra",
+      "source_type": "producer_repository",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "pipeline, modelos auxiliares, limites e diferenças entre versões; sem auditoria integral do código"
+    },
+    {
+      "id": "F27",
+      "author_or_producer": "Google",
+      "title": "EmbeddingGemma 2 developer guide",
+      "url": "https://developers.googleblog.com/embeddinggemma-2-the-developer-guide/",
+      "source_type": "producer_technical_blog",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "270M texto, 740M completo, finalidade vetorial e dimensões; benchmark não reproduzido"
+    },
+    {
+      "id": "F28",
+      "author_or_producer": "Google",
+      "title": "EmbeddingGemma model overview",
+      "url": "https://ai.google.dev/gemma/docs/embeddinggemma",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "famílias, uso local e diferença entre representação vetorial e predição numérica"
+    },
+    {
+      "id": "F29",
+      "author_or_producer": "Ailing Zeng et al.",
+      "title": "Are Transformers Effective for Time Series Forecasting?",
+      "url": "https://arxiv.org/abs/2205.13504",
+      "source_type": "research_paper_abstract",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "resumo e metadados; baseline linear; sem leitura/auditoria integral ou reprodução"
+    },
+    {
+      "id": "F30",
+      "author_or_producer": "Google Research / Si-An Chen and Chun-Liang Li",
+      "title": "TSMixer: An all-MLP architecture for time series forecasting",
+      "url": "https://research.google/blog/tsmixer-an-all-mlp-architecture-for-time-series-forecasting/",
+      "source_type": "producer_technical_blog",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "arquitetura temporal/atributos e escopo dos benchmarks; sem reprodução"
+    },
+    {
+      "id": "F31",
+      "author_or_producer": "scikit-learn developers",
+      "title": "SGDRegressor",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "regressão incremental partial_fit; referência de método, sem integração Android"
+    },
+    {
+      "id": "F32",
+      "author_or_producer": "Google AI Edge",
+      "title": "Post-training integer quantization",
+      "url": "https://developers.google.com/edge/litert/conversion/tensorflow/quantization/post_training_integer_quant",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "pesos/ativações int8, calibração e aviso de migração LiteRT Quantizer; nenhum modelo convertido"
+    },
+    {
+      "id": "F33",
+      "author_or_producer": "Microsoft / ONNX Runtime",
+      "title": "Deploy on mobile",
+      "url": "https://onnxruntime.ai/docs/tutorials/mobile/",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "custos de modelo/runtime, métricas e exemplos de build versionados; sem medir ORT no AEMA"
+    },
+    {
+      "id": "F34",
+      "author_or_producer": "Microsoft / ONNX Runtime",
+      "title": "Build a custom ONNX Runtime package",
+      "url": "https://onnxruntime.ai/docs/build/custom.html",
+      "source_type": "official_documentation",
+      "accessed_on": "2026-11-24",
+      "reading_scope": "redução de kernels por operadores exigidos; build não realizada"
     }
-  ]
+  ],
+  "scope_note": "Revisão exploratória; o campo experiments_reproduced descreve reprodução dos benchmarks externos, não os testes sintéticos locais documentados no estudo 5."
 }
