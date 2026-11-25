@@ -1,0 +1,122 @@
+[
+  {
+    "id": "screen",
+    "values": [
+      500,
+      20,
+      10,
+      5
+    ],
+    "expected_top_components": [
+      "screen"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 535, actual drain: 535-535\n  Global\n  screen: 500.000000 apps: 0\n  cpu: 20.000000 apps: 0\n  wifi: 10.000000 apps: 0\n  mobile_radio: 5.000000 apps: 0\nUID 10001: 80.000000\nUID 1010042: 30.000000\n"
+  },
+  {
+    "id": "cpu",
+    "values": [
+      15,
+      450,
+      10,
+      5
+    ],
+    "expected_top_components": [
+      "cpu"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 480, actual drain: 480-480\n  Global\n  screen: 15.000000 apps: 0\n  cpu: 450.000000 apps: 0\n  wifi: 10.000000 apps: 0\n  mobile_radio: 5.000000 apps: 0\nUID 10001: 80.000000\nUID 1010042: 30.000000\n"
+  },
+  {
+    "id": "wifi",
+    "values": [
+      10,
+      20,
+      420,
+      5
+    ],
+    "expected_top_components": [
+      "wifi"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 455, actual drain: 455-455\n  Global\n  screen: 10.000000 apps: 0\n  cpu: 20.000000 apps: 0\n  wifi: 420.000000 apps: 0\n  mobile_radio: 5.000000 apps: 0\nUID 10001: 80.000000\nUID 1010042: 30.000000\n"
+  },
+  {
+    "id": "mobile_radio",
+    "values": [
+      10,
+      20,
+      5,
+      430
+    ],
+    "expected_top_components": [
+      "mobile_radio"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 465, actual drain: 465-465\n  Global\n  screen: 10.000000 apps: 0\n  cpu: 20.000000 apps: 0\n  wifi: 5.000000 apps: 0\n  mobile_radio: 430.000000 apps: 0\nUID 10001: 80.000000\nUID 1010042: 30.000000\n"
+  },
+  {
+    "id": "zero",
+    "values": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "apps": [
+      0,
+      0
+    ],
+    "expected_top_components": [],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 0, actual drain: 0-0\n  Global\n  screen: 0.000000 apps: 0\n  cpu: 0.000000 apps: 0\n  wifi: 0.000000 apps: 0\n  mobile_radio: 0.000000 apps: 0\nUID 10001: 0.000000\nUID 1010042: 0.000000\n"
+  },
+  {
+    "id": "negative",
+    "values": [
+      -500,
+      15,
+      6,
+      1
+    ],
+    "apps": [
+      -30,
+      10
+    ],
+    "expected_top_components": [
+      "cpu"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 22, actual drain: 22-22\n  Global\n  screen: -500.000000 apps: 0\n  cpu: 15.000000 apps: 0\n  wifi: 6.000000 apps: 0\n  mobile_radio: 1.000000 apps: 0\nUID 10001: -30.000000\nUID 1010042: 10.000000\n"
+  },
+  {
+    "id": "tie",
+    "values": [
+      100,
+      100,
+      10,
+      5
+    ],
+    "apps": [
+      80,
+      80
+    ],
+    "expected_top_components": [
+      "screen",
+      "cpu"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 215, actual drain: 215-215\n  Global\n  screen: 100.000000 apps: 0\n  cpu: 100.000000 apps: 0\n  wifi: 10.000000 apps: 0\n  mobile_radio: 5.000000 apps: 0\nUID 10001: 80.000000\nUID 1010042: 80.000000\n"
+  },
+  {
+    "id": "unresolved_uid",
+    "values": [
+      5,
+      30,
+      10,
+      0
+    ],
+    "apps": [
+      400,
+      10
+    ],
+    "uid": 10088,
+    "expected_top_components": [
+      "cpu"
+    ],
+    "report": "Estimated power use (mAh):\n  Capacity: 4700, Computed drain: 45, actual drain: 45-45\n  Global\n  screen: 5.000000 apps: 0\n  cpu: 30.000000 apps: 0\n  wifi: 10.000000 apps: 0\n  mobile_radio: 0.000000 apps: 0\nUID 10088: 400.000000\nUID 1010042: 10.000000\n"
+  }
+]

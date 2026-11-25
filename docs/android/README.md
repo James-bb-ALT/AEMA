@@ -1,4 +1,4 @@
-# AEMA Android 2.0.0
+# AEMA Android 2.0.1
 
 Para a nova leitura local por IA, modelos e diagnóstico, veja [LLM e debug](LLM-E-DEBUG.md).
 

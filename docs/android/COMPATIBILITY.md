@@ -1,4 +1,4 @@
-# Compatibilidade e evidências — AEMA 2.0.0
+# Compatibilidade e evidências — AEMA 2.0.1
 
 ## Evidência adicionada em 2.0.0
 

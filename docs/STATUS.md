@@ -1,17 +1,21 @@
-# Estado atual — AEMA 2.0.0
+# Estado atual — AEMA 2.0.1
 
 Atualizado em 24 de novembro de 2026. Este arquivo descreve o estado atual; documentos
 de auditoria/refatoração e o baseline do roadmap são registros históricos.
 
-Documentação completa: [índice do manual](README.md), edição **2.0.0**, cobrindo objeto,
-hipóteses propostas, métodos, arquitetura, código e contratos do software **2.0.0**.
+Documentação completa: [índice do manual](README.md), edição **2.0.1**, cobrindo objeto,
+hipóteses propostas, métodos, arquitetura, código e contratos do software **2.0.1**.
 
 O [estudo de IA](estudos/README.md) registra a meta confirmada de previsão das próximas
 6 h, componentes/aplicativos, inferência offline e aparelhos com 6 GB ou mais, com
 treinamento maior no computador. Inclui fontes e proposta de arquitetura híbrida.
 A [leitura de snapshot por LLM e o debug](android/LLM-E-DEBUG.md) estão implementados em
-2.0.0. Deltas/janelas de treino, previsão futura, adaptação pessoal e ensaios de economia
+2.0.1. Deltas/janelas de treino, previsão futura, adaptação pessoal e ensaios de economia
 **não estão implementados**.
+
+A nova [simulação e avaliação de viabilidade](estudos/05-SIMULACAO-E-VIABILIDADE-LLM.md)
+exercita parsing/importação, predição numérica sintética e seleção nativa pelo Qwen real.
+Ela não substitui rótulos de consumo futuro observados em telefone físico.
 
 ## Implementado
 

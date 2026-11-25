@@ -91,18 +91,14 @@ def _verified_capture(path: Path):
         return capture, records, relations
 
 
-def _grammar(facts: list[dict], actions: list[str]) -> str:
+def _grammar(facts: list[dict]) -> str:
     def choices(values):
         return " | ".join(json.dumps(json.dumps(v)) for v in values)
 
     return (
-        'root ::= "{\\"focus\\":[" (fact ("," fact){0,2})? '
-        '"] ,\\"actions\\":[" (action ("," action){0,2})? "]}"\n'.replace("] ,", "],")
+        'root ::= "{\\"focus\\":[" (fact ("," fact){0,2})? "]}"\n'
         + "fact ::= "
         + choices([f["id"] for f in facts])
-        + "\n"
-        + "action ::= "
-        + choices(actions + ["none"])
         + "\n"
     )
 
@@ -172,10 +168,11 @@ def prepare_analysis(capture_path: str) -> str:
             "Read Android battery estimates. This is a cumulative snapshot, NOT a six-hour window "
             "or a future forecast. Components and UIDs overlap: never add the axes. "
             "Select up to three useful focus IDs from the supplied facts, prioritizing positive "
-            "high estimates within each axis. Select only relevant allowed actions; none means abstain. "
+            "high estimates within each axis. Select only focus IDs; the app assigns a matching review rule. "
+            "An empty focus list means abstain. "
             "Zero estimates are not proof of zero physical consumption. "
-            'Reply ONLY as {"focus":["C1"],"actions":["usage"]}. No explanation or new numbers.\n'
-            + json.dumps(dict(facts=public_facts, allowed_actions=actions), separators=(",", ":"))
+            'Reply ONLY as {"focus":["C1"]}. No actions, explanation or new numbers.\n'
+            + json.dumps(dict(facts=public_facts), separators=(",", ":"))
         )
         # Explicit streaming supports Python 3.10 as well as Android's Python 3.13.
         hasher = hashlib.sha256()
@@ -194,7 +191,7 @@ def prepare_analysis(capture_path: str) -> str:
                 actions=actions,
                 rejected_negative_estimates=rejected,
                 prompt=prompt,
-                grammar=_grammar(facts, actions),
+                grammar=_grammar(facts),
             ),
             ensure_ascii=False,
         )
@@ -209,22 +206,21 @@ def validate_reading(prepared_json: str, response: str) -> str:
         if len(response) > 4096:
             raise ValueError("response too large")
         result = json.loads(response)
-        if set(result) != {"focus", "actions"}:
+        if set(result) != {"focus"}:
             raise ValueError("unexpected fields")
         facts = {f["id"]: f for f in prepared["facts"]}
-        for key, allowed in (("focus", facts), ("actions", prepared["actions"] + ["none"])):
-            values = result[key]
-            if (
-                not isinstance(values, list)
-                or len(values) > 3
-                or any(not isinstance(v, str) or v not in allowed for v in values)
-                or len(values) != len(set(values))
-            ):
-                raise ValueError("ungrounded selection")
-        selected_actions = [a for a in result["actions"] if a != "none"]
-        focused_actions = {facts[f]["action"] for f in result["focus"] if facts[f]["value_mah"] > 0}
-        if not set(selected_actions) <= focused_actions:
-            raise ValueError("action lacks selected evidence")
+        focus = result["focus"]
+        if (
+            not isinstance(focus, list)
+            or len(focus) > 3
+            or any(not isinstance(v, str) or v not in facts for v in focus)
+            or len(focus) != len(set(focus))
+        ):
+            raise ValueError("ungrounded selection")
+        # Actions and their wording are deterministic reviewed rules, never model output.
+        selected_actions = sorted(
+            {facts[f]["action"] for f in focus if facts[f]["action"] and facts[f]["value_mah"] > 0}
+        )
         return json.dumps(
             dict(
                 schema_version=ANALYSIS_SCHEMA,
@@ -233,7 +229,7 @@ def validate_reading(prepared_json: str, response: str) -> str:
                 capture_sha256=prepared["capture_sha256"],
                 captured_at_utc=prepared["captured_at_utc"],
                 total_estimated_mah=prepared["total_estimated_mah"],
-                focus=[facts[f] for f in result["focus"]],
+                focus=[facts[f] for f in focus],
                 suggestions=[dict(id=a, text=ACTIONS[a]) for a in selected_actions],
                 facts=prepared["facts"],
                 rejected_negative_estimates=prepared["rejected_negative_estimates"],

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.1 — 2026-11-24
+
+Correção incremental na seleção de evidências da leitura local.
+
+- O Qwen agora seleciona somente IDs de evidência; ações/sugestões vêm de regras locais
+  revisadas, associadas aos fatos positivos selecionados.
+- Matriz sintética ampliada com 8 cenários e repetição no modelo real; veja o relatório
+  de validação e as limitações registradas no caderno de estudos.
+- Testes host, cenários nativos e documentação atualizados.
+
+Notas: [`docs/releases/2.0.1.md`](docs/releases/2.0.1.md).
+
 ## 2.0.0 — 2026-11-24
 
 Nova etapa de release: leitura local por LLM e debug.

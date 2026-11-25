@@ -1,4 +1,4 @@
-# Leitura local por LLM e debug — AEMA 2.0.0
+# Leitura local por LLM e debug — AEMA 2.0.1
 
 ## Usar no telefone
 
@@ -60,8 +60,9 @@ flowchart LR
   de conteúdo expandido para análise. Não extrai livremente o ZIP para o sistema de arquivos.
 - O prompt contém identificadores como `C1` e `A1`, e somente atributos permitidos.
   Nomes de pacotes, serial, payloads, brutos e diagnósticos do parser não entram no prompt.
-- A gramática restringe a saída a IDs e ações do contrato. A validação posterior recusa
-  campos extras, IDs desconhecidos, duplicatas e ações sem fato selecionado correspondente.
+- A gramática restringe a saída aos IDs de foco. O app deriva ações revisadas de fatos
+  positivos selecionados; o modelo não gera texto de ação. A validação recusa campos
+  extras, IDs desconhecidos e duplicatas.
   Formato correto não comprova utilidade científica: ainda é necessário avaliar recomendações.
 - O runtime roda somente em CPU, quatro threads, contexto 2.048 e máximo de 128 tokens.
   Usa o formato Qwen3 sem raciocínio prolongado. Há limite nativo de 90 s e limite do
@@ -149,5 +150,5 @@ android\gradlew.bat -p android connectedDebugAndroidTest "-Pandroid.testInstrume
 
 Sem o arquivo/instalação adequada, esses testes ficam ignorados, não aprovados por
 simulação. Resultados efetivamente executados são registrados nas
-[notas de release](../releases/2.0.0.md). Teste em emulador não comprova energia,
+[notas de release](../releases/2.0.1.md). Teste em emulador não comprova energia,
 compatibilidade com o S25 Plus ou precisão de previsão.

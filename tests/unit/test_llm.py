@@ -66,13 +66,19 @@ def test_verified_capture_builds_private_bounded_grounded_prompt(capture: Path) 
     assert "com.example" not in prepared["prompt"]
     assert "UID 1000" not in prepared["prompt"]
     assert "root ::=" in prepared["grammar"]
-    result = json.loads(
-        llm.validate_reading(json.dumps(prepared), '{"focus":["C1"],"actions":["screen"]}')
-    )
+    assert '"actions"' not in prepared["grammar"]
+    assert "allowed_actions" not in prepared["prompt"]
+    result = json.loads(llm.validate_reading(json.dumps(prepared), '{"focus":["C1"]}'))
     assert result["mode"] == "llm_snapshot_reading"
     assert result["focus"][0]["value_mah"] == 640
     assert result["suggestions"][0]["id"] == "screen"
     assert "prompt" not in result
+
+
+def test_review_action_is_derived_from_selected_fact(capture: Path) -> None:
+    prepared = llm.prepare_analysis(str(capture))
+    result = json.loads(llm.validate_reading(prepared, '{"focus":["C1"]}'))
+    assert [item["id"] for item in result["suggestions"]] == ["screen"]
 
 
 @pytest.mark.parametrize(
@@ -146,15 +152,13 @@ def test_invalid_zip_and_missing_member_fail_closed(tmp_path: Path) -> None:
         "not JSON",
         "[]",
         "{}",
-        '{"focus":["C99"],"actions":[]}',
-        '{"focus":["C1","C1"],"actions":[]}',
-        '{"focus":"C1","actions":[]}',
-        '{"focus":[null],"actions":[]}',
+        '{"focus":["C99"]}',
+        '{"focus":["C1","C1"]}',
+        '{"focus":"C1"}',
+        '{"focus":[null]}',
         '{"focus":["C1"],"actions":["delete_system_app"]}',
-        '{"focus":["C1"],"actions":[],"savings":95}',
-        '{"focus":[],"actions":["screen"]}',
-        '{"focus":["C1"],"actions":["screen","screen"]}',
-        '{"focus":["C1","A1","C1","A1"],"actions":[]}',
+        '{"focus":["C1"],"savings":95}',
+        '{"focus":["C1","C1","A1","A2"]}',
         "x" * 4097,
     ],
 )
@@ -164,9 +168,7 @@ def test_rejects_ungrounded_or_malformed_model_responses(capture: Path, response
 
 
 def test_allows_abstention_and_none_without_recommendations(capture: Path) -> None:
-    result = json.loads(
-        llm.validate_reading(llm.prepare_analysis(str(capture)), '{"focus":[],"actions":["none"]}')
-    )
+    result = json.loads(llm.validate_reading(llm.prepare_analysis(str(capture)), '{"focus":[]}'))
     assert result["focus"] == result["suggestions"] == []
 
 

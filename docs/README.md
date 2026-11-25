@@ -1,6 +1,6 @@
 # Documentação do projeto AEMA
 
-**Edição da documentação: 2.0.0 · Software documentado: 2.0.0 · 24/11/2026.**
+**Edição da documentação: 2.0.1 · Software documentado: 2.0.1 · 24/11/2026.**
 
 O AEMA é uma infraestrutura de coleta, interpretação e análise offline de dados Android
 BatteryStats. O app usa Shizuku para criar capturas locais a cada seis horas; o computador
@@ -14,7 +14,8 @@ consumo e recomendações**, com execução offline no telefone. O
 [caderno de estudos de IA](estudos/README.md) documenta essa linha, os requisitos
 confirmados, as alternativas e as fontes. A comparação elétrica continua como estudo
 de sustentação. A versão 2.0.0 implementa leitura por LLM e sugestões limitadas aos
-fatos de uma captura; previsão treinada e aprendizado pessoal permanecem propostos.
+fatos de uma captura. A correção 2.0.1 limita o papel do modelo à seleção de evidências;
+ações são associadas localmente. Previsão treinada e aprendizado pessoal permanecem propostos.
 Ver [guia da IA e debug](android/LLM-E-DEBUG.md).
 
 ## Roteiro de leitura
@@ -30,7 +31,8 @@ Ver [guia da IA e debug](android/LLM-E-DEBUG.md).
 | [Referências e glossário](projeto/07-REFERENCIAS-E-GLOSSARIO.md) | Quais fontes fundamentam o projeto e o que significam seus termos? |
 | [Catálogo completo](CATALOGO-COMPLETO.md) | Quais são os 147 campos catalogados, suas unidades e classes? |
 | [Estudos de IA e previsão](estudos/README.md) | Como investigar modelos leves, aprendizado pessoal e recomendações offline, e quais fontes sustentam as escolhas? |
-| [Leitura LLM e debug implementados](android/LLM-E-DEBUG.md) | Como instalar o modelo, analisar, cancelar, exportar e reproduzir a integração 2.0.0? |
+| [Leitura LLM e debug implementados](android/LLM-E-DEBUG.md) | Como instalar o modelo, analisar, cancelar, exportar e reproduzir a integração 2.0.1? |
+| [Simulação e viabilidade](estudos/05-SIMULACAO-E-VIABILIDADE-LLM.md) | O que passou nos testes, o que aprendeu o LLM sintético e o que falta validar com dados reais? |
 
 Para instalar e usar o app, consulte o [guia Android](android/README.md). Para compartilhar
 resultados, leia a [política de privacidade](study/PRIVACY.md). Para preparar a redação
@@ -56,10 +58,10 @@ registrada no pacote; esta documentação não atribui um nome por extenso sem d
 ## Versões e organização
 
 Esta etapa acrescenta funcionalidade. App, pacote Python e documentação recebem
-**2.0.0**, conforme a classificação do projeto. Contratos não alterados permanecem:
+**2.0.1**, conforme a classificação do projeto. Contratos não alterados permanecem:
 captura 1.0, registro canônico 1.0 e manifesto de dataset 2.0. O catálogo avança para
 1.2 com GPU; datasets 1.1 continuam importáveis quando não contêm as novas métricas.
-Ver [notas da release](releases/2.0.0.md); edições documentais anteriores permanecem históricas.
+Ver [notas da release](releases/2.0.1.md); edições documentais anteriores permanecem históricas.
 
 O [estado atual](STATUS.md) resume a entrega. Os arquivos em `audit/` e `refactoring/`
 preservam avaliações anteriores. O [plano de implementação](roadmap/IMPLEMENTATION-PLAN.md)

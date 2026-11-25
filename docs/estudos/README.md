@@ -1,8 +1,8 @@
 # Estudos de IA para previsão de bateria
 
-**Pesquisa consultada em 24/11/2026 · Documentação 1.0.2 · Software existente 1.0.0.**
+**Pesquisa consultada em 24/11/2026 · Pesquisa histórica 1.0.2 · Software atual 2.0.1.**
 
-**Implementação posterior:** a release 2.0.0 acrescenta
+**Implementação posterior:** as releases 2.0.0 e 2.0.1 acrescentam
 [leitura local por LLM e debug](../android/LLM-E-DEBUG.md), usando pesos Qwen3 sem ajuste
 pessoal. Este caderno preserva o recorte original da pesquisa. Previsão de seis horas,
 treinamento pessoal e experimentos de economia continuam como trabalho proposto.
@@ -42,6 +42,7 @@ fidelidade aos dados, memória, tempo e energia no aparelho de 6 GB.
 | [3. Dados, treinamento e validação](03-DADOS-TREINAMENTO-E-VALIDACAO.md) | Rótulos, deltas, prevenção de vazamento, personalização, hipóteses e critérios experimentais. |
 | [4. Arquitetura e plano experimental](04-ARQUITETURA-E-PLANO-EXPERIMENTAL.md) | Fluxos offline, artefatos, recomendações e etapas de implementação propostas. |
 | [Fontes e método de pesquisa](FONTES.md) | Fontes primárias, versões consultadas, alcance da leitura e limites da revisão. |
+| [5. Simulação e viabilidade técnica](05-SIMULACAO-E-VIABILIDADE-LLM.md) | Testes sintéticos, inferência Android, protótipo LoRA e limites de generalização. |
 
 O [registro estruturado das fontes](fontes.json) facilita atualizações futuras.
 As referências da infraestrutura e dos estudos elétricos anteriores continuam no

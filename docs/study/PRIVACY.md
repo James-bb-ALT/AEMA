@@ -1,4 +1,4 @@
-# Privacidade — AEMA 2.0.0
+# Privacidade — AEMA 2.0.1
 
 ## Leitura local por LLM e debug
 

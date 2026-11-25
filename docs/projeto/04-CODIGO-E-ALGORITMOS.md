@@ -4,8 +4,8 @@
 
 Os caminhos abaixo são a referência de implementação. Esta documentação explica funções
 e contratos; comentários/docstrings no código continuam úteis para detalhes locais.
-O núcleo de parsing e análise descritiva é determinístico. A versão 2.0.0 acrescenta
-seleção de fatos e sugestões por um LLM local, com validação posterior.
+O núcleo de parsing e análise descritiva é determinístico. A versão 2.0.1 acrescenta
+seleção de fatos por LLM local e ações derivadas de regras revisadas, com validação posterior.
 O AEMA extrai as estimativas de carga que o Android já apresenta. Ele não implementa
 um modelo elétrico próprio para recalcular mAh a partir de tempos de CPU, tráfego ou RAM.
 
