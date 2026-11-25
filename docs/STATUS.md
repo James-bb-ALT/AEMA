@@ -3,12 +3,18 @@
 Atualizado em 24 de novembro de 2026. Este arquivo descreve o estado atual; documentos
 de auditoria/refatoração e o baseline do roadmap são registros históricos.
 
-Documentação completa: [índice do manual](README.md), edição **2.0.2**, cobrindo objeto,
+Documentação completa: [índice do manual](README.md), edição **2.0.3**, cobrindo objeto,
 hipóteses propostas, métodos, arquitetura, código e contratos do software **2.0.1**.
 
 O [estudo de alternativas ultraleves](estudos/06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md)
 prioriza Ridge/MLP compacta e redução do runtime, conforme nova preferência do autor.
 É proposta estudada; o app publicado continua usando Qwen, sem migração nesta etapa.
+
+O [experimento ultraleve 1.0.0](estudos/07-COMPARACAO-RIDGE-MLP.md) já comparou Ridge
+e MLP em dois regimes sintéticos pareados, com cinco sementes e exportação portátil.
+Ridge teve menor erro de consumo; a MLP não trouxe ganho neste teste. Ranking dos
+maiores consumidores apresentou vencedores diferentes. O resultado não é treino
+pessoal e os pesos exportados não foram instalados no app.
 
 O [estudo de IA](estudos/README.md) registra a meta confirmada de previsão das próximas
 6 h, componentes/aplicativos, inferência offline e aparelhos com 6 GB ou mais, com

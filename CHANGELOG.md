@@ -1,5 +1,19 @@
 # Changelog
 
+## Documentação 2.0.3 / experimento ultraleve 1.0.0 — 2026-11-24
+
+Nova etapa do componente experimental; app/pacote permanecem 2.0.1. Melhoria incremental
+da documentação, conforme a classificação do proprietário.
+
+- Comparação reproduzível entre Ridge e MLP com 599–1.447 parâmetros, cinco sementes,
+  dois regimes sintéticos pareados e seleção cronológica sem acesso ao teste final.
+- Exportação JSON de pesos FP32/normalizadores, hashes e paridade por inferência escalar.
+- Testes de aprendizado, isolamento temporal, normalização e exportação das duas famílias.
+- Resultados completos e limites documentados: Ridge menor erro de consumo neste ensaio;
+  ranking tem vencedores diferentes. Não há precisão real ou redução de APK comprovada.
+
+Notas: [`docs/releases/docs-2.0.3.md`](docs/releases/docs-2.0.3.md).
+
 ## Documentação 2.0.2 — 2026-11-24
 
 Melhoria incremental documental; app e pacote permanecem 2.0.1.

@@ -5,6 +5,11 @@ Pedido: reduzir substancialmente armazenamento, memória e custo da IA, usando I
 OCR e EmbeddingGemma 2 como referências de especialização. Estudo exploratório com
 fontes primárias; nenhuma substituição de modelo ou nova rede treinada nesta etapa.
 
+**Execução posterior:** a documentação 2.0.3 acrescenta o
+[experimento Ridge/MLP 1.0.0](07-COMPARACAO-RIDGE-MLP.md). Ridge venceu em erro de
+consumo nos regimes sintéticos testados; a rede treinou/exportou, sem ganho de precisão.
+O texto abaixo preserva a proposta original, não descreve o estado da execução posterior.
+
 ## Recomendação
 
 Comparar **Ridge, árvores pequenas e uma MLP compacta treinada em atributos numéricos**,

@@ -49,6 +49,7 @@ fidelidade aos dados, memória, tempo e energia no aparelho de 6 GB.
 | [Fontes e método de pesquisa](FONTES.md) | Fontes primárias, versões consultadas, alcance da leitura e limites da revisão. |
 | [5. Simulação e viabilidade técnica](05-SIMULACAO-E-VIABILIDADE-LLM.md) | Testes sintéticos, inferência Android, protótipo LoRA e limites de generalização. |
 | [6. Alternativas ultraleves](06-MODELOS-ULTRALEVES-E-REDES-NEURAIS.md) | Indra OCR, EmbeddingGemma 2, MLP/Ridge, pesos calculados, runtime e protocolo de comparação. |
+| [7. Comparação Ridge/MLP executada](07-COMPARACAO-RIDGE-MLP.md) | Resultado em dois regimes sintéticos, arquivos exportados, paridade e temporização host. |
 
 O [registro estruturado das fontes](fontes.json) facilita atualizações futuras.
 As referências da infraestrutura e dos estudos elétricos anteriores continuam no
